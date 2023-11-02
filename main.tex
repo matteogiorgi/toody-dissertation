@@ -1,0 +1,190 @@
+\documentclass[12pt]{report}
+
+\usepackage{anyfontsize}
+\usepackage[italian]{babel}
+\usepackage[a4paper, top=2.5cm, bottom=3.5cm, left=3.5cm, right=3.5cm, footskip=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{listings}
+\usepackage{scrextend}
+\usepackage{xspace}
+
+
+\newcommand{\toody}{\textsl{TooDY}\xspace}
+\newcommand{\flask}{\textsl{Flask}\xspace}
+\newcommand{\spacy}{\textsl{spaCy}\xspace}
+
+
+\lstset{
+  basicstyle=\ttfamily\small,        % Imposta il font monospazio di dimensione piccola
+  showspaces=false,                  % Non mostra gli spazi
+  showtabs=false,                    % Non mostra i tab
+  showstringspaces=false,            % Non mostra gli spazi nelle stringhe
+  frame=none,                        % Aggiunge una cornice attorno al codice
+  tabsize=4,                         % Imposta la dimensione del tab a 2 spazi
+  keepspaces=true,                   % Mantiene gli spazi nel testo
+  columns=flexible,                  % Colonne flessibili
+  numbers=none,                      % Mostra i numeri di riga a sinistra
+  numbersep=5pt,                     % Distanza tra i numeri di riga e il codice
+}
+
+
+\begin{document}
+\fontsize{13}{18}\selectfont
+
+
+% FRONTESPIZIO
+\begin{titlepage}
+\begin{figure}
+    \centering\includegraphics[scale=0.5]{cherubino.png}
+\end{figure}
+\begin{center}
+    {\LARGE{Corso di Laurea in Informatica}}\\
+    \vspace{1cm}
+    {\Large {TESI DI LAUREA}}\\
+    \vspace{3cm}
+    {\huge {\toody\\{\normalsize Tool for Detecting variabilitY}}}
+\end{center}
+\vspace{2cm}
+\begin{minipage}[t]{0.49\textwidth}\centering
+	{\large{\scshape{Relatore}\\\bf{Laura Semini}}}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.49\textwidth}\centering
+	{\large{\scshape{Candidato}\\\bf{Matteo Giorgi}}}
+\vspace{4cm}
+\end{minipage}
+\centering{\large ANNO ACCADEMICO 2022/2023}
+\end{titlepage}
+
+
+% INDICE
+\tableofcontents
+\thispagestyle{empty}
+
+
+% SOMMARIO
+\begin{abstract}
+Questo studio si inserisce nel contesto della ricerca sulla definizione di \textit{Linee di Prodotto Software} basate su documenti di requisiti redatti in linguaggio naturale. Le ambiguità presenti in tali documenti possono generare disallineamenti tra le aspettative del cliente e il prodotto finale, causando spesso revisioni non previste degli artefatti. Si è notato che un'espressione ambigua può talvolta servire come strumento per posticipare decisioni.
+
+    Ampliando questa prospettiva, studi precedenti hanno evidenziato come l'identificazione dell'ambiguità possa rivelare elementi di variabilità nascosti nei requisiti, ricorrendo a specifici marcatori di variabilità che si discostano dai consueti indicatori di ambiguità.
+
+    Nella presente tesi, sulla base di un prototipo esistente, si è sviluppato uno strumento di elaborazione linguistica in grado di rilevare tali indicatori di variabilità nei documenti di requisiti. Questo strumento, dotato di capacità di analisi lessicale e sintattica, si avvale della libreria \spacy per la sua realizzazione.
+
+% Il lavoro si colloca in una linea di ricerca per la specifica di linee di prodotto software (SPL) a partire da documenti di requisiti in linguaggio naturale.
+
+% Le ambiguità in un documento dei requisiti normalmente causano incoerenze tra l'aspettativa del cliente e il prodotto sviluppato, e spesso portano a rielaborazioni indesiderate degli artefatti.  Tuttavia, un termine ambiguo può anche essere usato come mezzo per rimandare una decisione. Sviluppando questa idea, è stato precedentemente mostrato che il rilevamento dell'ambiguità può anche essere usato come un modo per catturare aspetti nascosti di variabilità nei requisiti, usando nella ricerca indicatori specifici per la variabilità che sono una variazione rispetto agli indicatori di ambiguità noti.
+
+% In questo lavoro di tesi, partendo da un prototipo iniziale, è stato realizzato uno strumento di elaborazione del linguaggio naturale  per individuare, in un documento dei requisiti, indicatori di variabilità. Il tool realizza funzionalità di analisi lessicale e sintattica ed è  implementato usando la libreria \spacy.
+\end{abstract}
+
+
+% CAPITOLO 1
+\chapter{Introduzione}
+L’abilità di sviluppare software di qualità ha inizio con la definizione precisa ed esaustiva dei requisiti che si richiede al sistema di soddisfare. Il documento dei requisiti, in tal senso, rappresenta l'elemento base su cui si fonda l’intero ciclo di vita del progetto software. La redazione di tale documento tuttavia, non è compito semplice e ciò è principalmente dovuto alla natura ambigua ed intrinsecamente imprecisa del linguaggio naturale comunemente utilizzato per esprimerlo. In un progetto software la formalizzazione dei requisiti è dunque pratica essenziale e, se non opportunamente curata, possibile veicolo di ambiguità, che spesso portano a interpretazioni errate, incoerenze ed eventuali fallimenti nel soddisfare le aspettative del cliente.
+
+Il presente lavoro di tesi si colloca in questo scenario, proponendo lo sviluppo di \toody (tool for detecting variability): una web-app focalizzata sull’identificazione della variabilità nei documenti dei requisiti redatti in linguaggio naturale. L’obiettivo è quello di creare uno strumento facile e veloce da usare; un supporto concreto nell’analisi dei requisiti, utile a mitigare i problemi legati all’ambiguità linguistica e ridurre il divario tra le aspettative del cliente e il prodotto software sviluppato.
+
+
+\section{Strumenti utilizzati}
+Nell’ambito di questo progetto, sono stati utilizzati diversi strumenti che hanno facilitato lo sviluppo e la realizzazione del tool; tra questi, meritano una menzione particolare \flask e \spacy. \flask è un micro framework per interfacce web, estremamente flessibile e leggero, che ha permesso di sviluppare un server dedicato all’elaborazione delle richieste relative all’analisi dei documenti dei requisiti e alla gestione di un database contenente lo storico di ciascun utente registrato al servizio web: l'utente può quindi editare e verificare i documenti caricati, verificandone la correttezza formale e controllandone i vari casi di ambiguità e variabilità. \spacy, invece, è una libreria open source di elaborazione del linguaggio naturale che ha fornito le funzionalità di analisi lessicale e sintattica necessarie per l’individuazione degli indicatori di variabilità nei documenti analizzati. La scelta di tali strumenti è stata dettata dalla necessità di avere un sistema flessibile, efficiente e in grado di gestire complesse analisi linguistiche in modo efficace.
+
+Unitamente, l'interfaccia intuitiva della web-app facilita l'interazione con il sistema, permettendo agli utenti di gestire i documenti direttamente sulla piattaforma ed eseguire l'analisi in modo semplice e diretto: la possibilità di visualizzare in tempo reale i risultati dell'analisi è certamente uno strumento utile per le fasi di verifica e la validazione, promuovendo così un approccio più accurato e riflessivo nella definizione dei requisiti del software.
+
+% \subsection{La piattaforma}
+% \toody è stato concretizzato come una applicazione web implementata in \flask, dove l'utente registrato può caricare, editare e verificare la correttezza formale di un documento dei requisiti. Attraverso la piattaforma, è possibile controllare i vari casi di ambiguità e variabilità all'interno del testo, offrendo così un supporto prezioso durante la fase di analisi dei requisiti. L'interfaccia intuitiva della web-app facilita l'interazione con il sistema, permettendo agli utenti di caricare documenti, modificarli ed eseguire l'analisi in modo semplice e diretto: la possibilità di visualizzare in tempo reale i risultati dell'analisi è certamente uno strumento utile per le fasi di verifica e la validazione, promuovendo così un approccio più accurato e riflessivo nella definizione dei requisiti del software.
+
+
+\section{Motivazioni}
+La necessità di una maggiore formalizzazione e di nuovi strumenti che potessero assistere in modo efficace l'analisi dei requisiti ha rappresentato uno stimolo alla realizzazione di \toody.
+
+L’idea alla base del progetto è quella di trasformare un termine ambiguo da ostacolo a risorsa e utilizzarlo come mezzo per rimandare alcune decisioni; al contempo, identificare aspetti nascosti di variabilità nei requisiti.
+
+Le richieste iniziali del progetto delineavano la necessità di una piattaforma eclettica, facilmente accessibile attraverso diversi sistemi operativi e questo requisito ha orientato la scelta verso lo sviluppo di una web-app, permettendo così un accesso ubiquo e una fruibilità trasversale indipendentemente dal sistema utilizzato. L'interfaccia così realizzata, non solo facilita l'interazione con il sistema di analisi, ma si evolve in una piattaforma efficiente, comprensiva di gestione dei documenti, fornendo all'utente uno strumento completo per l'elaborazione dei testi.
+
+% ma estende le sue funzionalità, evolvendosi in una piattaforma comprensiva per la gestione dei documenti dei requisiti. \toody adempie quindi un secondo scopo: quello di gestione dei documenti in maniera efficiente, fornendo all'utente una piattaforma completa per l'elaborazione dei testi.
+
+% La possibilità di caricare, editare, salvare e gestire documenti all'interno della stessa piattaforma rappresenta un valore aggiunto significativo, fornendo un ambiente unificato per l'analisi e la gestione dei requisiti. Questa caratteristica si rivela particolarmente utile in fasi cruciali del ciclo di vita del software, dove la gestione efficace dei requisiti e la loro corretta interpretazione sono fattori chiave per il successo del progetto.
+
+% Il desiderio di fornire un sistema che fosse non solo capace di analizzare il testo, ma anche di gestire i documenti in maniera efficiente, ha dato forma a \toody come una piattaforma integrata. La possibilità di caricare, editare, salvare e gestire documenti all'interno della stessa piattaforma rappresenta un valore aggiunto significativo, fornendo un ambiente unificato per l'analisi e la gestione dei requisiti. Questa caratteristica si rivela particolarmente utile in fasi cruciali del ciclo di vita del software, dove la gestione efficace dei requisiti e la loro corretta interpretazione sono fattori chiave per il successo del progetto.
+
+% In sintesi, le motivazioni che hanno guidato lo sviluppo di \toody sono radicate nella volontà di rispondere in maniera efficace alle sfide presentate dall'analisi dei requisiti in linguaggio naturale, fornendo una soluzione integrata per l'analisi, la gestione e la verifica dei requisiti, in un ambiente accessibile e facilmente fruibile attraverso diversi sistemi operativi.
+
+% La motivazione che ha guidato lo sviluppo di \toody nasce dalla constatazione della complessità e delle sfide insite nell’analisi dei requisiti, in particolare quando questa è basata su documenti redatti in linguaggio naturale. L’ambiguità, l’incoerenza e l’incompletezza sono problemi ricorrenti che possono causare gravi incomprensioni e, di conseguenza, rielaborazioni indesiderate degli artefatti software.
+
+
+\section{Struttura e contenuto}
+La presente dissertazione è organizzata seguendo una logica chiara e progressiva, mirata a fornire una comprensione completa del lavoro svolto e degli obiettivi raggiunti con lo sviluppo di \toody.
+
+Il capitolo \textsl{SPLE \& Paradigmi}, approfondisce i vari paradigmi legati alle linee di prodotto software, esplorando metodologie come \textit{FAST}, \textit{RSEB} e \textit{FODA}. In particolare, si discutono le tecniche di analisi del dominio e la rappresentazione attraverso il diagramma delle features. Viene anche affrontata la tematica dell’ambiguità linguistica e come essa può introdurre variabilità nei requisiti.
+
+In \textsl{Tecniche di NLP}, si esplorano le fondamenta dell'elaborazione del linguaggio naturale. Vengono presentate le principali tecniche, come \textit{Tokenizzazione}, \textit{POS-Tagging} e \textit{Parsing}, illustrando come queste siano state applicate nel contesto del progetto. Vengono inoltre descritte le principali librerie utilizzate, con un focus particolare su \spacy.
+
+Il cuore della tesi è rappresentato da, \textsl{Studio, progettazione e lavoro svolto}, in cui si entra nel dettaglio tecnico del progetto \toody. Vengono presentati il materiale di partenza, l'architettura del server \flask e l’implementazione del parser. Questa sezione illustra concretamente come le teorie e le tecniche discusse nei capitoli precedenti siano state applicate nella realizzazione pratica del tool.
+
+Infine, si riflette sulle competenze acquisite, sulle potenzialità di \toody e sugli sviluppi futuri, offrendo una visione d'insieme delle implicazioni e delle prospettive del progetto.
+
+% La tesi è strutturata in modo da fornire, inizialmente, un contesto teorico e metodologico relativo all’ingegneria del software, alla gestione dei requisiti e alle tecniche di NLP. Successivamente, si entra nel dettaglio del progetto \toody, descrivendo le fasi di studio, progettazione e implementazione che hanno portato alla realizzazione del tool. In particolare, verranno descritte l’architettura del server \flask e l’implementazione del parser basato su \spacy, illustrando con esempi concreti il funzionamento e le potenzialità del sistema sviluppato. Verrà data una particolare enfasi all'importanza della detezione della variabilità e come questa può influenzare l'intero processo di sviluppo del software. Il capitolo proseguirà con una discussione approfondita sulle sfide incontrate durante l'elaborazione del linguaggio naturale, evidenziando come le tecniche di NLP possano contribuire a superare tali sfide e migliorare l'efficacia dell'analisi dei requisiti. Verranno inoltre esplorate le potenziali integrazioni e sviluppi futuri di \toody, sottolineando come l'innovazione in questo campo possa portare a una migliore comprensione e gestione dei requisiti software.
+
+% Infine, vengono presentate le conclusioni, riflessioni critiche e possibili sviluppi futuri del progetto. Le riflessioni si concentreranno sui principali insegnamenti acquisiti, sulle competenze sviluppate e sulle potenzialità che \toody potrebbe offrire in futuro per l'analisi dei requisiti e lo sviluppo di software.
+
+\vspace{1cm}\noindent
+Concludendo, l’elaborato intende fornire un contributo nell’ambito della ricerca relativa alla specifica di \textit{Linee di Prodotto Software} a partire da documenti di requisiti in linguaggio naturale. Attraverso l’implementazione di \toody, si punta a fornire uno strumento utile ed efficace per l’identificazione della variabilità, con l’obiettivo di migliorare la qualità del processo di analisi dei requisiti e del software prodotto.
+
+
+% CAPITOLO 2
+\chapter{Software Product Line engineering}
+Una Software Product Line (SPL) rappresenta un'approccio strategico alla ingegneria del software che permette di creare una varietà di prodotti software correlati da un insieme comune di risorse, garantendo al contempo che ciascun prodotto soddisfi i requisiti specifici del cliente. Questo approccio si basa sull'idea di capitalizzare su aspetti comuni e variabili tra i diversi prodotti software per raggiungere economie di scala, ridurre i tempi di sviluppo e migliorare la qualità del software. L'obiettivo è sviluppare una famiglia di prodotti che condividono una struttura comune, pur avendo variazioni per soddisfare le esigenze di mercati o clienti diversi.
+
+La Software Product Line Engineering (SPLE), invece, è la disciplina ingegneristica che guida l'organizzazione, la creazione e il mantenimento di una SPL. Si concentra sulla definizione e l'implementazione di processi e metodi robusti per gestire la variabilità e l'ereditarietà all'interno della linea di prodotti, garantendo che ogni prodotto generato dalla linea di prodotti soddisfi i requisiti di qualità e funzionalità. Attraverso la SPLE, le organizzazioni possono formalizzare e gestire in modo efficace l'evoluzione della linea di prodotti, dalla concezione alla consegna e al mantenimento. La SPLE enfatizza la creazione di un'architettura comune e di un insieme di componenti riusabili, oltre alla definizione di processi per configurare e assemblare questi componenti in prodotti individuali.
+
+Al cuore della SPLE vi è la gestione della variabilità, che si riferisce alla capacità di un sistema di essere efficientemente estendibile, modificabile, personalizzabile e configurabile per differenti contesti. La gestione della variabilità permette di catturare e gestire le differenze e le similitudini tra i prodotti della linea in modo sistematico, permettendo una produzione efficiente e controllata di vari membri della linea di prodotti.
+
+
+\section{FAST}
+\section{RSEB}
+\section{FODA}
+\section{Ambiguità e Variabilità}
+
+
+% CAPITOLO 3
+\chapter{Tecniche di NLP}
+
+\section{Tokenizzazione}
+\section{POS-Tagging}
+\section{Parsing}
+\section{Analisi semantica}
+\section{Librerie e dizionari per NLP}
+
+
+% CAPITOLO 4
+\chapter{Studio, progettazione e lavoro svolto}
+\begin{addmargin}[0.5cm]{0cm}
+\begin{lstlisting}
+@app.route('/new-backup-code', methods=['GET'])
+@login_required
+def new_backup_code():
+    backup_code = generate_random_string(8)
+    current_user.backup_code = backup_code
+    db.session.commit()
+
+    flash(f'Your new backup code is {backup_code}. ' +
+          'Keep it in a safe place!', 'info')
+    return redirect(url_for('main'))
+\end{lstlisting}
+\end{addmargin}
+
+
+\section{Materiale di partenza}
+\section{Architettura e implementazione server \flask}
+\section{Implementazione parser}
+
+
+% CAPITOLO 5
+\chapter{Conclusioni}
+\section{Familiarità tecniche usate e competenze acquisite}
+\section{Sviluppi futuri e riflessioni critiche}
+
+
+\end{document}
