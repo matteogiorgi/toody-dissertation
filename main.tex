@@ -1290,7 +1290,7 @@ In sintesi, l'\textsf{analizzatore di congiunzioni} ricerca specifiche congiunzi
 
 
 
-% CAPITOLO 4
+% CAPITOLO 5
 \chapter{TooDY web-app}
 \label{sec:architettura}
 Dovendo implementare uno strumento per l'analisi dei documenti dei requisiti, la scelta di sviluppare \toody come una applicazione web, è risultata la soluzione più efficace: questo garantisce accessibilità universale, interoperabilità tra diversi sistemi e una gestione centralizzata delle risorse di elaborazione.
@@ -1447,6 +1447,8 @@ Infine, il server prepara una risposta in formato \json contenente un dizionario
 
 \subsubsection{Codice risposta}
 \begin{lstlisting}[language=Python]
+# Definisco la route `/conta-parole` che
+# accetta solo richieste POST
 @app.route("/conta-parole", methods=["POST"])
 def conta_parole():
     # Estraggo i dati JSON dalla richiesta HTTP POST
@@ -1538,6 +1540,47 @@ def conta_parole():
 \end{lstlisting}
 
 
+\newpage
+\subsubsection{Codice classe \texttt{Request}}
+\begin{lstlisting}[language=Python]
+class Request(db.Model):
+    # Chiave primaria della tabella `Request` (univoca per richiesta)
+    id = db.Column(db.Integer, primary_key=True)
+
+    # Campi contenenti testo e dizionario inviati dall'utente
+    content1 = db.Column(db.Text, nullable=False)
+    content2 = db.Column(db.Text, nullable=False)
+
+    # Campi per memorizzare il numero totale di corrispondenze
+    lexical_total_matches = db.Column(db.Integer, nullable=True)
+    passive_total_matches = db.Column(db.Integer, nullable=True)
+    verb_conj_total_matches = db.Column(db.Integer, nullable=True)
+    conj_sentence_total_matches = db.Column(db.Integer, nullable=True)
+
+    # Qui sotto i campi per memorizzare i risultati delle analisi:
+    #   results      -> JSON con i risultati delle analisi
+    #   user_id      -> chiave che associa richiesta e utente
+    #   request_name -> nome personalizzato richiesta
+    #   timestamp    -> timestamp alla creazione della richiesta
+    #   memory_data  -> dizionario che mantiene lo stato dell'analisi
+    results = db.Column(
+        db.Text, nullable=True
+    )
+    user_id = db.Column(
+        db.Integer, db.ForeignKey("user.id"), nullable=False
+    )
+    request_name = db.Column(
+        db.String(150), nullable=False, default="Unnamed Request"
+    )
+    timestamp = db.Column(
+        db.DateTime, nullable=False, default=datetime.now(local_tz)
+    )
+    memory_data = db.Column(
+        db.Text, nullable=True
+    )
+\end{lstlisting}
+
+
 \section{Design dell'interfaccia}
 L'interfaccia di \toody si articola su due pagine principali, per meglio organizzare le funzionalità dell'applicazione e guidare l'utente attraverso un flusso di lavoro ottimale per una efficiente analisi del testo.
 
@@ -1557,6 +1600,8 @@ La pagina principale di \toody si presenta con un'interfaccia intuitiva e pulita
 
 All'avvio dell'applicazione, l'utente si trova nella pagina di benvenuto che lo invita a registrarsi o effettuare il login. Non ci sono altre possibili interazioni, se non quella di visualizzare la pagina di \textit{about} con informazioni base sull'applicazione.
 
+Nel caso l'utente si sia appena registrato, \toody lo informa\footnote{Le informazioni vengono recapitate all'utente tramite \textit{flash-texts}: strumento che \flask mette a disposizione per inviare messaggi temporanei, destinati ad essere visualizzati una sola volta, come una notifica o un alert che scompare dopo che l'utente ha proseguito con un'altra richiesta.} del successo dell'operazione e gli fornisce il \textit{backup-code}\footnote{Al momento della registrazione, \toody produce un codice randomico di 8 caratteri associato all'utente. Il \textit{backup-code} può essere generato nuovamente usando la funzione \textit{new backup-code} presente all'interno del menù a tendina sulla barra principale.} da inserire al posto della password in caso di smarrimento di quest'ultima.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{pagina1-welcome.png}
@@ -1571,7 +1616,10 @@ All'avvio dell'applicazione, l'utente si trova nella pagina di benvenuto che lo 
 \label{fig:pagina1-login}
 \end{figure}
 
-Nel caso l'utente si sia appena registrato, \toody lo informa\footnote{Le informazioni vengono recapitate all'utente tramite \textit{flash-texts}: strumento che \flask mette a disposizione per inviare messaggi temporanei, destinati ad essere visualizzati una sola volta, come una notifica o un alert che scompare dopo che l'utente ha proseguito con un'altra richiesta.} del successo dell'operazione e gli fornisce il backup-code\footnote{Al momento della registrazione, \toody produce un codice randomico di 8 caratteri associato all'utente. Il backup-code può essere generato nuovamente usando la funzione \textit{new backup-code} presente all'interno del menù a tendina sulla barra principale.} da inserire al posto della password in caso di smarrimento di quest'ultima.
+Effettuate le prime \textit{request}, la \textsf{main page} si trasforma in una dashboard personale. In questa pagina, l'utente può visualizzare l'elenco delle sue precedenti interazioni (ordinabili per nome o data), con la possibilità di rinominarle, scaricarle\footnote{La funzione di download permette di salvare sul proprio dispositivo un file \textit{zip} contenente il testo dei requisiti, il dizionario usato, i risultati dell'analisi e un file contenente il testo con i match evidenziati.} o eliminarle.
+
+Le \textit{request} possono essere visualizzate cliccando sul singolo nome: questo reindirizza l'utente alla \textsf{second page} contenente tutti i dati dalla richiesta selezionata (testo, dizionario e risultati).
+% Questa funzionalità permette agli utenti di gestire facilmente il loro lavoro, creando un archivio personale delle attività svolte.
 
 \begin{figure}[H]
 \centering
@@ -1579,11 +1627,6 @@ Nel caso l'utente si sia appena registrato, \toody lo informa\footnote{Le inform
 \caption{\toody \textsf{main page}: dashboard utente.}
 \label{fig:pagina1-login}
 \end{figure}
-
-Effettuate le prime \textit{request}, la \textsf{main page} si trasforma in una dashboard personale. In questa pagina, l'utente può visualizzare l'elenco delle sue precedenti interazioni (ordinabili per nome o data), con la possibilità di rinominarle, scaricarle\footnote{La funzione di download permette di salvare sul proprio dispositivo un file \textit{zip} contenente il testo dei requisiti, il dizionario usato, i risultati dell'analisi e un file contenente il testo con i match evidenziati.} o eliminarle.
-
-Le \textit{request} possono essere visualizzate cliccando sul singolo nome: questo reindirizza l'utente alla \textsf{second page} contenente tutti i dati dalla richiesta selezionata (testo, dizionario e risultati).
-% Questa funzionalità permette agli utenti di gestire facilmente il loro lavoro, creando un archivio personale delle attività svolte.
 
 
 \subsubsection{Gestione route principale}
@@ -1647,6 +1690,8 @@ def main(order=None):
 \subsection{\toody \textsf{second page}}
 La \textsf{second page} di \toody è il centro interattivo dell'applicazione, dove l'utente può caricare un documento, scegliere il dizionario e lanciare la richiesta di analisi del testo (\textit{Launch request}).
 
+La prima parte della pagina è dedicata al caricamento dei dati e contiene due aree di testo: la più piccola è una semplice \texttt{textarea} ed è riservata al dizionario dei termini\footnote{\toody fornisce un elenco predefinito di voci da cercare, suddivise per categoria (\texttt{DISJ}, \texttt{OPTIONALITY}, \texttt{VAGUENESS} e \texttt{WEAKNESS}).}, mentre la più grande è un editor\footnote{L'editor in questione è \ace (\href{https://ace.c9.io/}{\textit{Ajax Cloud9 Editor}}): un code-editor versatile, realizzato per una efficiente integrazione con le applicazioni web. \ace offre un'esperienza non dissimile da quella propsta dai moderni desktop-editor e, nella configurazione scritta per \toody, permette di scegliere sia i keybindings \textsl{Default} che quelli \textsl{Vim-like}.} completo, destinato al testo dei requisiti.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{pagina2-vuota.png}
@@ -1654,18 +1699,16 @@ La \textsf{second page} di \toody è il centro interattivo dell'applicazione, do
 \label{fig:pagina1-login}
 \end{figure}
 
-La prima parte della pagina è dedicata al caricamento dei dati e contiene due aree di testo: la più piccola è una semplice \texttt{textarea} ed è riservata al dizionario dei termini\footnote{\toody fornisce un elenco predefinito di voci da cercare, suddivise per categoria (\texttt{DISJ}, \texttt{OPTIONALITY}, \texttt{VAGUENESS} e \texttt{WEAKNESS}).}, mentre la più grande è un editor\footnote{L'editor in questione è \ace (\href{https://ace.c9.io/}{\textit{Ajax Cloud9 Editor}}): un code-editor versatile, realizzato per una efficiente integrazione con le applicazioni web. \ace offre un'esperienza non dissimile da quella propsta dai moderni desktop-editor e, nella configurazione scritta per \toody, permette di scegliere sia i keybindings \textsl{Default} che quelli \textsl{Vim-like}.} completo, destinato al testo dei requisiti.
-
-Nella seconda parte della pagina, sono mostrati i risultato dell'analisi. Dopo aver lanciato la \textit{request}, l'utente è immediatamente informato sui match lessicali, della forma passiva, delle congiunzioni verbali e delle frasi congiuntive\footnote{Questi quattro tipi di match corrispondono ai risultati trovati con le funzioni analisi linguistica discusse in \cref{sec:parser}.}. I risultati così raggruppati, sono organizzati in \textit{card} espandibili che forniscono contesto e numero di riga per ciascun match, offrendo una interfaccia utente facilmente navigabile.
-
-Inoltre la pagina permette all'utente di interagire con i risultati e modificare le etichette adiacenti a ciascun match, scegliendo tra \textsf{Neutral}, \textsf{False Positive}, \textsf{Ambiguity} e \textsf{Variability}. Alla successiva \textit{request}, le etichette modificate saranno inviate al server assieme a testo e dizionario, così che gli algoritmi di analisi possano riconoscere ciascun nuovo match trovato e apporre subito l'eventuale etichetta corretta.
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{pagina2-piena.png}
 \caption{\toody \textsf{second page}: risultati \textit{request}.}
 \label{fig:pagina1-login}
 \end{figure}
+
+Nella seconda parte della pagina, sono mostrati i risultato dell'analisi. Dopo aver lanciato la \textit{request}, l'utente è immediatamente informato sui match lessicali, della forma passiva, delle congiunzioni verbali e delle frasi congiuntive\footnote{Questi quattro tipi di match corrispondono ai risultati trovati con le funzioni analisi linguistica discusse in \cref{sec:parser}.}. I risultati così raggruppati, sono organizzati in \textit{card} espandibili che forniscono contesto e numero di riga per ciascun match, offrendo una interfaccia utente facilmente navigabile.
+
+Inoltre la pagina permette all'utente di interagire con i risultati e modificare le etichette adiacenti a ciascun match, scegliendo tra \textsf{Neutral}, \textsf{False Positive}, \textsf{Ambiguity} e \textsf{Variability}. Alla successiva \textit{request}, le etichette modificate saranno inviate al server assieme a testo e dizionario, così che gli algoritmi di analisi possano riconoscere ciascun nuovo match trovato e apporre subito l'eventuale etichetta corretta.
 
 
 \subsubsection{Generazione dinamica delle \textit{card}}
@@ -1793,11 +1836,383 @@ function createResultCard(requestName, results, type) {
 
 
 \section{Gestione degli utenti}
+L'applicazione \toody è pensata per essere uno strumento di lavoro indipendente che permette all'utente di operare in autonomia senza la necessità di software ausiliari.
+
+L'aspetto chiave per ottenere uno strumento del genere è quello di organizzare una gestione degli utenti che provveda non solo alle classiche funzionalità di accesso all'account (registrazione, login/logout, cancellazione, cambio password), ma anche alla possibilità di salvare e recuperare le \textit{request} effettuate.
+
+L'archiviazione delle richieste permette agli utenti di mantenere un registro delle loro attività e recuperare analisi precedenti: un database conserverà quindi le informazioni relative a ciascuna richiesta, garantendo all'utente di visualizzare i risultati e scaricare i file relativi a una singola \textit{request}.
 
 
+\subsubsection{Codice classe \texttt{User}}
+\begin{lstlisting}[language=Python]
+class User(UserMixin, db.Model):
+    # ID univoco per ogni utente, usato
+    # come chiave primaria nel database
+    id = db.Column(db.Integer, primary_key=True)
+
+    # Qua sotto i campi che memorizzano i dati utente:
+    #   username        -> nome utente (unnico e non nullo)
+    #   password        -> password utente (cifrata, non nulla)
+    #   backup_code     -> codice di backup (randomico, opzionale)
+    #   last_login_date -> data ultimo login (opzionale)
+    #   last_activity   -> data ultima attività (opzionale)
+    username = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
+    backup_code = db.Column(db.String(150), nullable=True)
+    last_login_date = db.Column(db.DateTime, nullable=True)
+    last_activity = db.Column(db.DateTime, nullable=True)
+
+    # Relazione con la tabella delle richieste (Request)
+    # `backref` -> crea un attributo inverso nella classe Request
+    #              chiamato `author`
+    # `lazy`    -> definisce come i dati correlati vengono caricati
+    # `cascade` -> gestisce la cancellazione dei dati correlati
+    #              in modo automatico
+    requests = db.relationship(
+        "Request", backref="author", lazy=True,
+        cascade="all, delete-orphan"
+    )
+
+    # Funzione per impostare la password dell'utente
+    # (usa `generate_password_hash` per crittografare la password)
+    def set_password(self, password):
+        self.password = generate_password_hash(
+            password, method="sha256"
+        )
+
+    # Funzione per verificare la correttezza della password
+    # (usa `check_password_hash` per confrontare le password)
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+\end{lstlisting}
 
 
-% CAPITOLO 5
+\subsection{Registrazione utente}
+La funzione \texttt{register} gestisce il processo di creazione di un nuovo account. Quando l'utente compila e invia il form di registrazione, la funzione verifica la correttezza della password inserita e la validità dello username scelto (eventualmente notificando l'utente).
+
+Completata la registrazione, l'utente viene autenticato automaticamente e informato del successo dell'operazione. \toody invia il \textit{backup-code} da usare in fase di login al posto della password.
+
+\subsubsection{Codice registrazione}
+\begin{lstlisting}[language=Python]
+# Definisco la route `/register` che
+# accetta richieste GET e POST
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    # Se l'utente è già autenticato,
+    # lo reindirizzo alla pagina principale
+    if current_user.is_authenticated:
+        return redirect(url_for("main"))
+
+    # Se ricevuta una richiesta POST, significa che
+    # il form di registrazione è stato inviato.
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        confirm_password = request.form["confirm_password"]
+
+        # Controllo che password e conferma siano uguali;
+        # controllo che lunghezza password rispetti il minimo
+        if password != confirm_password:
+            flash(
+                "Passwords do not match. Please try again.",
+                "warning"
+            )
+            return redirect(url_for("register"))
+        if len(password) < MIN_PASSWORD_LENGTH:
+            flash(
+                f"Password must be at least {MIN_PASSWORD_LENGTH} "
+                "characters long.", "danger"
+            )
+            return redirect(url_for("register"))
+
+        existing_user = User.query.filter_by(
+            username=username
+        ).first()
+
+        # Controllo che l'utente non esista già
+        if existing_user:
+            flash(
+                f"User {username} already exists. "
+                "Choose a different username.", "danger"
+            )
+            return redirect(url_for("register"))
+
+        # Cifro la password, creo un nuovo utente
+        # e lo inserisco nel database
+        hashed_password = generate_password_hash(
+            password, method="sha256"
+        )
+        backup_code = generate_random_string(8)
+        new_user = User(
+            username=username, password=hashed_password,
+            backup_code=backup_code
+        )
+        db.session.add(new_user)
+        db.session.commit()
+
+        # Autentico il nuovo utente e lo reindirizzo
+        # alla pagina principale
+        login_user(new_user)
+        flash(f"User {username} successfully created!", "success")
+        flash(
+            f"Your backup code is: {backup_code}. "
+            "Keep it in a safe place!", "info"
+        )
+        return redirect(url_for("main"))
+
+    # Se ricevuta una richiesta GET, renderizza
+    # il template HTML per la registrazione
+    return render_template("register.html")
+\end{lstlisting}
+
+
+\subsection{Login utente}
+Il server \flask gestisce il processo di autenticazione attraverso la funzione \texttt{login}. Essa verifica le credenziali inserite nel form di login, dove l'utente potrà inserire la propria password o il \textit{backup-code} generato alla registrazione\footnote{Se un utente dovesse accedere a \toody usando il proprio \textit{backup-code}, a login effettuato, verrà generata randomicamente una nuova password e mostrata con un \textit{flash-text}. L'utente potrà cambiarla in un qualsiasi momento usando la funzione \textit{Change password} presente nel menù a tendina sulla barra principale.}. Un \textit{flash-text} informativo annuncerà il successo dell'operazione e l'utente verrà reindirizzato alla \textsf{main page}.
+
+
+\subsubsection{Codice login}
+\begin{lstlisting}[language=Python]
+# Definisco la route `/login` che
+# accetta richieste GET e POST
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    # Se l'utente è già autenticato, lo
+    # reindirizzo alla pagina principale
+    if current_user.is_authenticated:
+        return redirect(url_for("main"))
+
+    # Gestisco la richiesta di login quando
+    # l'utente invia il form
+    if request.method == "POST":
+
+        # Usando lo username inserito, cerco
+        # l'utente nel database
+        user = User.query.filter_by(
+            username=request.form["username"]
+        ).first()
+
+        # Controllo che l'utente esista
+        # e che stia usando il backup-code
+        if user and user.backup_code == request.form["password"]:
+            new_password = generate_random_string(8)
+            user.set_password(new_password)
+            user.last_login_date = datetime.utcnow()
+            user.last_activity = datetime.utcnow()
+            db.session.commit()
+
+            # Effettuo il login dell'utente
+            # e mostro un flash-text
+            login_user(user)
+            flash(
+                f"Hi {user.username}, you've logged in with "
+                "the backup code!", "warning"
+            )
+            flash(
+                f"Your new password is {new_password}. "
+                "Please change it as soon as possible!", "info"
+            )
+            return redirect(url_for("main"))
+
+        # Se l'utente esiste e sta usando la password,
+        # effettuo il login e mostro un flash-text
+        elif user and user.check_password(request.form["password"]):
+            login_user(user)
+            user.last_login_date = datetime.utcnow()
+            user.last_activity = datetime.utcnow()
+            db.session.commit()
+            flash(
+                f"Hi {user.username}, you've successfully logged in",
+                "success"
+            )
+            return redirect(url_for("main"))
+
+        # Se l'accesso fallisce,
+        # mostro un flash-text di errore
+        else:
+            flash(
+                "Login failed. Please check username and password.",
+                "danger"
+            )
+
+    # Se il metodo è GET o il login non è andato a buon fine,
+    # reinidirizzo l'utente alla pagina di login
+    return render_template("login.html")
+\end{lstlisting}
+
+
+\subsection{Logout utente}
+% La funzione \texttt{logout} del server \flask, protetta dal decoratore \texttt{@login\_required}, garantisce che solo gli utenti autenticati possano disconnettersi.
+Affinchè l'applicazione possa disconnettere gli utenti loggati, il server dispone della funzione \texttt{logout}: una procedura che usa il meccanismo \textsf{Flask-Login}\footnote{Quando un utente effettua il login, \textsf{Flask-Login} memorizza un identificatore univoco (\textsf{ID}) per l'utente nella sessione del browser, che sarà poi accessibile nelle richieste \http successive. Questa informazione è salvata in un cookie sicuro che il browser invia automaticamente al server assieme ad ogni richiesta.\\
+Nel momento in cui viene invocata \texttt{logout\_user}, \textsf{Flask-Login} cerca l'identificatore nella sessione attuale per determinare quale utente debba essere scollegato. Rimuove quindi l'\textsf{ID} dell'utente dalla sessione (pulendo ogni dato associato) e fa in modo che le richieste future non siano più autenticate come quell'utente.\\
+Le sessioni in Flask sono protette e non possono essere facilmente manomesse dal client: questo garantisce che l'\textsf{ID} dell'utente nella sessione sia affidabile.}, messo a disposizione dal framework, per terminare la sessione dell'utente corrente. Dopo aver effettuato la disconnessione, \texttt{logout} non fa altro che mostrare un \textit{flash-text} di notifica e reindirizzare l'utente alla pagina principale.
+
+La disconnesione dell'utente dalla sessione può avvenire anche in modo automatico: la funzione \texttt{heartbeat} si occupa di controllare periodicamente l'attività dell'utente e, se questo rimanesse inattivo per più di 30 minuti, la sessione verrebbe terminata automaticamente, l'utente informato con un \textit{flash-text} e reindirizzato alla pagina di login.
+
+
+\subsubsection{Codice logout}
+\begin{lstlisting}[language=Python]
+# Definisco la route `/logout` che
+# richiede l'autenticazione dell'utente
+@app.route("/logout")
+@login_required
+def logout():
+    # Salvo il nome dell'utente corrente
+    # Lancio la funzione `logout_user()` di `flask-login`
+    username = current_user.username
+    logout_user()
+
+    # Mostro un flash-text di notifica
+    # e reindirizzo l'utente alla pagina principale
+    flash(f"User {username} disconnected.", "info")
+    return redirect(url_for("main"))
+\end{lstlisting}
+
+
+\subsubsection{Codice auto-logout}
+\begin{lstlisting}[language=Python]
+# Definisco la route `/heartbeat` che
+# richiede l'autenticazione dell'utente
+@app.route("/heartbeat")
+@login_required
+def heartbeat():
+    # Ottengo l'orario corrente in UTC
+    now = datetime.utcnow()
+
+    # Se l'utente non ha effettuato alcuna richiesta negli
+    # ultimi 30 minuti, lo disconnetto, mostro un flash-text
+    # di notifica e reindirizzo l'utente alla pagina di login
+    if (now - current_user.last_activity) > timedelta(minutes=30):
+        logout_user()
+        flash(
+            "You have been logged out due to inactivity.", "warning"
+        )
+        return redirect(url_for("login"))
+
+    # Se l'utente è attivo, restituisco una risposta vuota
+    # con status-code 204 (No Content)
+    return "", 204
+\end{lstlisting}
+
+
+\begin{mdframed}
+\small
+Nel client, integrato in \html tramite \jinja, è presente un frammento \javascript che chiama la route \texttt{/heartbeat} a intervalli regolari. Questa chiamata funge da meccanismo keep-alive per gli utenti attivi e da trigger per il logout automatico scatenato da \texttt{heartbeat} per quelli zombie.
+
+\begin{lstlisting}[language=JavaScript]
+// Se l'utente è autenticato, chiamo la route '/heartbeat'
+// del server e imposto un intervallo di chiamata di 1 min.
+if ({{ current_user.is_authenticated|tojson }}) {
+    setInterval(function() {
+        window.location.href = '/heartbeat';
+    }, 1 * 60 * 1000);
+}
+\end{lstlisting}
+\end{mdframed}
+
+
+\subsection{Cancellazione utente}
+Per una gestione completa degli utenti registrati su \toody, il server contiene funzioni per la rimozione degli account.
+
+\texttt{unregister} esegue una semplice cancellazione di un account dall'applicazione. Dopo averne verificato l'identità, la funzione elimina l'account, disconnette l'utente, lancia un \textit{flash-text} di notifica ed esegue il reindirizzamento alla pagina principale.
+
+\texttt{remove\_inactive\_users} è programmata per eliminare automaticamente gli account degli utenti inattivi da più di 15 giorni. Questa funzione è essenziale per mantenere il database pulito, rimuovendo account non più utilizzati.
+
+\texttt{start\_scheduler} è responsabile dell'avvio di uno scheduler\footnote{La funzione \texttt{start\_scheduler} usa \texttt{BackgroundScheduler} per la gestione degli utenti inattivi. \texttt{BackgroundScheduler} è parte del modulo \href{https://apscheduler.readthedocs.io/en/stable/}{\textsf{APScheduler}} e consente di programmare l'esecuzione di compiti in determinati momenti o dopo intervalli di tempo specifici (con un funzionamento analogo ai cron-jobs Linux).\\
+Nello specifico, questo scheduler esegue tutti i sui thread in background (senza interferire con il processo principale, ne interrompere il normale flusso di esecuzione dell'applicazione) ed è persistente rispetto ai lavori pianificati (i processi schedulati vengono salvati nel database e ripristinati in caso di riavvio dell'applicazione).} in background che esegue periodicamente la funzione \texttt{remove\_inactive\_users}. Questo garantisce che la pulizia periodica degli utenti inattivi avvenga automaticamente.
+
+
+\newpage
+\subsubsection{Codice cancellazione}
+\begin{lstlisting}[language=Python]
+# Definisco la route `/unregister` che
+# accetta richieste POST e richiede
+# l'autenticazione dell'utente
+@app.route("/unregister", methods=["POST"])
+@login_required
+def unregister():
+    # Recupero la password fornita dall'utente con il form e
+    # trovo l'utente corrente nel database utilizzando il suo ID
+    password = request.form["password"]
+    user = User.query.filter_by(id=current_user.id).first()
+
+    # Verifico che la password fornita sia corretta con
+    # `check_password_hash` per confrontare la password cifrata
+    if not check_password_hash(user.password, password):
+        flash("Incorrect password. Please try again.", "danger")
+        return redirect(url_for("main"))
+
+    # Salvo il nome dell'utente, elimino l'utente
+    # dal database e committo i cambiamenti
+    username = current_user.username
+    db.session.delete(current_user)
+    db.session.commit()
+
+    # Disconnetto l'utente utilizzando con `logout_user`,
+    # mostro un flash-text di conferma e reindirizzo l'utente
+    # alla pagina principale
+    logout_user()
+    flash(f"User {username} has been deleted.", "info")
+    return redirect(url_for("main"))
+\end{lstlisting}
+
+
+\subsubsection{Codice auto-cancellazione}
+\begin{lstlisting}[language=Python]
+def remove_inactive_users():
+    # Stabilisco una soglia calcolata come
+    # il timestamp attuale meno 15 giorni
+    threshold_date = datetime.utcnow() - timedelta(days=15)
+
+    # Recupero tutti gli utenti che non hanno effettuato
+    # l'accesso da prima della data soglia
+    inactive_users = User.query.filter(
+        User.last_login_date <= threshold_date
+    ).all()
+
+    # Scorro la lista degli utenti inattivi
+    # e li elimina dal database
+    for user in inactive_users:
+        db.session.delete(user)
+    db.session.commit()
+
+
+def start_scheduler():
+    # Nuovo scheduler in background
+    scheduler = BackgroundScheduler()
+
+    # Aggiungo un lavoro allo scheduler: la funzione
+    # `remove_inactive_users` che verrà eseguita giornalmente
+    # ed eliminerà gli utenti inattivi da più di 15 giorni
+    scheduler.add_job(
+        remove_inactive_users,
+        "interval",
+        days=1
+    )
+
+    # Avvio lo scheduler
+    scheduler.start()
+\end{lstlisting}
+
+
+\begin{mdframed}
+\small
+Il frammento di codice finale del server \flask è il punto di ingresso dell'applicazione. Qui, prima di lanciare l'applicazione, viene avviata la funzione \texttt{start\_scheduler}, assicurando che il meccanismo di pulizia degli account inattivi sia in funzione.
+
+\begin{lstlisting}[language=Python]
+if __name__ == "__main__":
+    # Creo tutte le tabelle nel database e
+    # avvio lo scheduler `BackgroundScheduler`
+    with app.app_context():
+        db.create_all()
+        start_scheduler()
+
+    # Avvio l'applicazione Flask
+    app.run(debug=True)
+\end{lstlisting}
+\end{mdframed}
+
+
+% CAPITOLO 6
 \chapter{Conclusioni}
 \label{sec:conclusioni}
 \section{Tecniche usate e competenze acquisite}
