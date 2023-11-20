@@ -360,8 +360,6 @@ I \textit{requisiti non funzionali} invece, si riferiscono a vincoli e standard 
 Le ambiguità nei documenti dei requisiti causano normalmente inconsistenze tra le aspettative degli stakeholder e il prodotto sviluppato, portando spesso a modifiche indesiderate degli \textit{artefatti}\footnote{Il termine \textit{artefatto} si riferisce a qualsiasi prodotto tangibile o intangibile che viene creato durante il processo di sviluppo del software.\\
 Gli artefatti possono includere documenti, codici sorgente, test e qualsiasi altro elemento che contribuisce al processo di creazione e mantenimento del software \cite{pohl:bockle:linden}.} finali.
 
-% L'analisi dei requisiti software in relazione ai problemi di interpretazione dovuti all'uso del NL è stata estensivamente studiata negli ultimi anni. Una soluzione individuata all'interno della comunità di Ingegneria dei Requisiti (RE) è l'impiego di tecniche di elaborazione del linguaggio naturale (NLP) per rilevarle.
-
 
 \section{Software Product Lines}
 \label{sec:spl}
@@ -374,20 +372,6 @@ In questo contesto, le caratteristiche di flessibilità appena descritte sono ch
 La \textsf{Software Product Line Engineering} è un paradigma di sviluppo software che modella le caratteristiche comuni e quelle di Variabilità di una famiglia di sistemi correlati, al fine di massimizzare il riutilizzo e ridurre i costi di sviluppo.
 \end{mdframed}
 
-
-% \section{Documenti dei requisiti}
-% Il documento dei requisiti, spesso denominato \textit{Documento di Specifica dei Requisiti Software} (\srs), è un documento formale che definisce l'insieme completo dei requisiti per un sistema software. Esso fornisce una descrizione dettagliata delle funzionalità, delle interazioni che l'utente avrà con il software e dei vincoli di sistema. Il documento funge da contratto tra stakeholder e sviluppatori: garantisce che gli sviluppatori comprendano ciò che è stato commissionato e che, una volta realizzato il software, gli stakeholder ottengano ciò che hanno richiesto.
-
-% Nel contesto della \textit{Software Product Line Engineering} (\sple), i documenti dei requisiti rivestono un'importanza cruciale. La \sple affronta la sfida di progettare, sviluppare e mantenere linee di prodotti software che condividono un insieme comune di caratteristiche, pur presentando variazioni specifiche. In questo contesto, la chiarezza, la precisione e la gestione efficace dei requisiti sono essenziali. I documenti dei requisiti diventano il fondamento su cui si costruisce l'intera linea di prodotto: essi delineano le funzionalità condivise che formano il nucleo comune della \spl, nonché le variazioni che distinguono i singoli prodotti all'interno della linea. Una comprensione chiara e dettagliata dei requisiti permette di massimizzare il riutilizzo del software (riducendo così i costi e i tempi di sviluppo) e garantisce che ogni prodotto derivato dalla linea mantenga una qualità elevata e soddisfi le specifiche esigenze del mercato o del cliente. In sintesi, per le \textit{Software Product Line} (\spl), i documenti dei requisiti non sono solo specifiche tecniche, ma la chiave per ottenere soluzioni software efficienti, scalabili e adattabili.
-
-
-% \section{Variabilità nei requisiti}
-% La Variabilità è un concetto centrale nella \textit{Software Product Line Engineering}: essa si riferisce alla capacità di un sistema software di essere efficientemente esteso, modificato o personalizzato per particolari contesti. La Variabilità rappresenta le differenze potenziali o effettive tra prodotti in una \spl; questa differenziazione è spesso introdotta intenzionalmente per permettere diverse configurazioni o adattamenti di un prodotto.
-
-% Mentre la Variabilità è spesso desiderata e gestita in modo proattivo nella \sple, permettendo agli sviluppatori di creare una gamma variegata di prodotti da una base comune, i casi di ambiguità nei requisiti sono generalmente evitati. Questi ultimi, se non identificati e gestiti, possono portare a incoerenze e malintesi tra gli stakeholder e gli sviluppatori, causando potenziali problemi nella fase di sviluppo.
-
-% Possiamo asserire quindi che nella \textit{Software Product Line Engineering}, riconoscere e gestire correttamente Variabilità e ambiguità nei documenti dei requisiti è fondamentale per garantire soluzioni software efficienti, scalabili e adattabili, permettendo agli sviluppatori di mantenere un vantaggio competitivo in un mercato in continua evoluzione.
-
 La \textit{Software Product Line Engineering} è caratterizzata da due processi chiave: \textit{Domain Engineering} e \textit{Application Engineering}. Questi processi sono fondamentali per la progettazione, sviluppo e manutenzione di linee di prodotti software che condividono funzionalità comuni, ma che possono variare in base a specifiche esigenze.
 
 Il processo di \textsf{Domain Engineering} si concentra sulla creazione di asset riutilizzabili per una linea di prodotto: esso analizza le esigenze delle diverse applicazioni, definendo un framework che rappresenta le caratteristiche comuni e variabili di una \spl. L'obiettivo è sviluppare componenti e funzionalità che possano essere condivise attraverso vari prodotti della linea.
@@ -398,10 +382,6 @@ Dopo la definizione gli asset comuni, la \textsf{Application Engineering} sfrutt
 
 
 \subsection{I paradigmi della \sple}
-% Le \textit{Software Product Line} (\spl) rappresentano una strategia emergente nel campo dell'ingegneria del software, finalizzata a produrre una serie di prodotti software correlati da un insieme comune di asset, ma con variazioni specifiche per soddisfare diverse esigenze di mercato o obiettivi del cliente. Questo approccio, anziché sviluppare software come prodotti singoli, si focalizza sulla creazione di molteplici \spl, offrendo una flessibilità senza precedenti e garantendo al contempo coerenza e qualità.
-
-% Centrale alla \spl è il concetto di Variabilità, che descrive le differenze tra i prodotti di una stessa linea. La gestione efficace della Variabilità è fondamentale per realizzare i benefici della \spl, come la riduzione dei costi di sviluppo e la velocizzazione del \textit{time-to-market}. Per affrontare queste sfide, sono stati proposti diversi paradigmi e metodologie nell'ambito della \textit{Software Product Line Engineering}. Questi paradigmi forniscono frameworks e pratiche per identificare, modellare e gestire la Variabilità attraverso l'intero ciclo di vita del software.
-
 Nel contesto delle \textit{Software Product Lines}, l'introduzione della Variabilità nel ciclo di sviluppo è direttamente correlata alla definizione di \textit{feature}, in quanto funzionalità o caratteristica dei prodotti software.
 
 A tutti i livelli di astrazione, la descrizione di una linea di prodotto è opportunamente catturata da un modello di \textit{feature} e si compone di una parte costante e di una variabile. La prima è riferita a tutti gli aspetti che accomunano i prodotti della famiglia, mentre la seconda descrive quelle caratteristiche, che abbiamo denominato Variabilità, utilizzate per differenziare un prodotto da un altro.
@@ -409,8 +389,6 @@ A tutti i livelli di astrazione, la descrizione di una linea di prodotto è oppo
 La gestione efficace della Variabilità è la chiave per sfruttare appieno i benefici della \spl, come la riduzione dei costi di sviluppo e la velocizzazione del \textit{time-to-market}. A questo proposito, diversi paradigmi e metodologie sono stati proposti: ciascuno fornisce frameworks e pratiche per identificare e modellare la Variabilità attraverso l'intero ciclo di vita del software.
 
 Vediamo adesso \fast e \rseb: entrambi basati sulla notazione \uml\footnote{\uml, acronimo di \textit{Unified Modeling Language}, è uno standard di modellazione utilizzato per specificare, visualizzare, costruire e documentare gli artefatti di un sistema software.}, il primo paradigma si focalizza sull'identificazione di \textit{feature} comuni, mentre il secondo enfatizza il riutilizzo guidato dai casi d'uso \cite{griss:favaro:alessandro, harsu}.
-
-% Ogni paradigma, come \fast di Weiss, \rseb basato sulla notazione \uml, o \foda introdotto da Kang, presenta un insieme unico di tecniche e metodologie, basate su anni di ricerca e pratica nel settore. Mentre \fast si focalizza sull'identificazione di \textit{feature} comuni, \rseb enfatizza il riutilizzo guidato dai casi d'uso e \foda si concentra sull'analisi orientata alle \textit{feature}. L'adozione di tali paradigmi può trasformare radicalmente il modo in cui gli sviluppatori implementano e distribuiscono software, rendendo l'innovazione più agile, scalabile ed efficiente.
 
 
 \subsubsection{\fast}
@@ -428,8 +406,6 @@ In sintesi \fast, attraverso l'analisi orientata alle \textit{features}, offre u
 
 
 \subsubsection{\rseb}
-% Il \rseb (\textit{REuse-Driven Software Engineering Business}) \cite{griss:favaro:alessandro}, rappresenta un altro pilastro nell'ambito della \textit{Software Product Line Engineering}. Basato sulla notazione \uml (\textit{Unified Modeling Language}), il \rseb si distingue per la sua focalizzazione sul riutilizzo sistematico e per la sua forte dipendenza dai casi d'uso come strumenti chiave nella definizione dei requisiti e nella progettazione del software.
-
 Il modello \rseb (\textit{REuse-Driven Software Engineering Business}) \cite{griss:favaro:alessandro} si basa sull'idea che il riutilizzo efficace degli asset software possa portare a significative economie di scala, riducendo il time-to-market e migliorando la qualità del prodotto. \rseb si avvale dei casi d'uso per identificare e modellare le funzionalità chiave e le variabili all'interno di un dominio.
 
 Il processo può essere suddiviso nelle seguenti fasi:
@@ -443,15 +419,10 @@ Il processo può essere suddiviso nelle seguenti fasi:
 
 In sintesi, \rseb rappresenta un modello con un approccio orientato al riutilizzo, attraverso il quale gli sviluppatori possono affrontare con maggiore efficacia la complessità e la Variabilità dei prodotti software.
 
-% In sintesi, \rseb rappresenta un modello con un approccio orientato al riutilizzo, dando particolare enfasi ai casi d'uso come strumenti fondamentali per la definizione, la progettazione e la realizzazione di prodotti software all'interno di una \spl. Attraverso l'adozione del \rseb, gli sviluppatori possono affrontare con maggiore efficacia la complessità e la Variabilità dei prodotti software, garantendo soluzioni che siano sia adattabili che efficienti.
-
 
 \subsection{ Il paradigma \foda}
 L'analisi del dominio orientata alle caratteristiche o \foda (\textit{Feature-Oriented Domain Analysis}) \cite{kang:cohen:hess:nowak:peters}
 è considerato una pietra miliare nell'ambito della \textit{Software Product Line Engineering} perché introduce il concetto di \textit{feature} come elemento centrale nell'analisi del dominio e nella modellazione della Variabilità. Il paradigma fornisce un metodo sistematico per identificare e rappresentare le caratteristiche comuni e le Variabilità tra prodotti simili all'interno di un dominio, facilitando così la progettazione e lo sviluppo di \spl.
-
-% è un metodo di analisi del dominio che ha introdotto la modellazione delle caratteristiche nella \textit{Software Product Line Engineering}. Il \foda è stato sviluppato nel 1990 da Kyo Kang, Sholom Cohen, James Hess, William Novak e Spencer Peterson\footnote{Nella loro pubblicazione, stabiliscono i metodi per eseguire un'analisi di dominio e descrivere i prodotti del processo di analisi: \href{https://insights.sei.cmu.edu/documents/1011/1990_005_001_15872.pdf}{\textit{Feature-Oriented Domain Analysis (FODA)}}.}
-% in seguito a diversi progetti di ricerca finanziati dal Dipartimento della Difesa del governo degli Stati Uniti; i suoi concetti sono considerati un passaggio evolutivo importante per il riutilizzo del software e hanno introdotto un approccio rivoluzionario all'analisi e alla progettazione basato sull'idea centrale delle \textit{features}.
 
 Una \textit{feature} viene definita come un aspetto evidente o distintivo del software, percepito dall'utente come una qualità o una caratteristica specifica del sistema. L'essenza del \foda è di rappresentare il sistema software in termini di \textit{features} e di utilizzare tali rappresentazioni per identificare e modellare aspetti comuni e variabili delle applicazioni.
 
@@ -479,8 +450,6 @@ La \textit{Context Analysis} si concentra su tre aspetti principali:
 
 Il contesto d'uso è essenziale per definire come il sistema interagirà con il suo ambiente, per identificare le esigenze degli utenti (e di altri stakeholder) e per stabilire le condizioni sotto le quali il sistema dovrà operare.
 
-% Nella metodologia \foda, Il processo di \textit{Context Analysis} è quindi di aiuto agli sviluppatori per comprendere l'ambiente in cui il loro sistema opererà, fornendo le informazioni necessarie per fare scelte di progettazione informate e per prevedere come il sistema si comporterà in situazioni reali.
-
 
 \subsubsection{Domain modelling}
 In \foda, la fase di \textit{Domain Modelling} si concentra sull'identificazione delle \textit{features} e delle classi che compongono il sistema, fornendo una rappresentazione dettagliata del software.
@@ -495,16 +464,10 @@ Il \textit{Domain Modelling} è suddiviso in tre attività principali:
 
 Durante la fase di \textit{Domain Modelling}, viene creata una rappresentazione visuale delle diverse \textit{features} e delle loro relazioni denominata \textit{Features Diagram}\myref{sec:features_diagram}: esso rappresenta la decomposizione gerarchica del sistema in termini di \textit{features} e può essere utilizzato come punto di riferimento durante le fasi successive dello sviluppo del software.
 
-% La fase di \textit{Domain Modelling} è parte cruciale del paradigma \foda che, con l'ausilio dei \textit{Features Diagrams}, aiuta gli sviluppatori a visualizzare le diverse componenti del software e a comprendere come queste interagiscono tra loro.
-
 
 \subsubsection{Features Diagram}
 \label{sec:features_diagram}
-Come anticipato, i \textit{Features Diagrams} sono un elemento fondamentale nell'approccio \foda: essi rappresentano il sistema in termini di funzionalità e componenti, oltre a fornire uno schema delle \textit{features} del sistema e delle loro interazioni.
-% La rappresentazione visuale fornita dai \textit{Features Diagrams} fornisce una struttura per l'identificazione, l'organizzazione e la modellazione delle \textit{features}, fulcro del processo di \textit{Domain Modelling}.
-Questo facilita la comprensione e la gestione degli elementi di Variabilità nel software.
-
-% La modellazione delle \textit{features} svolge un ruolo centrale nel processo di \textit{Domain Modelling} e
+Come anticipato, i \textit{Features Diagrams} sono un elemento fondamentale nell'approccio \foda: essi rappresentano il sistema in termini di funzionalità e componenti, oltre a fornire uno schema delle \textit{features} del sistema e delle loro interazioni. Questo facilita la comprensione e la gestione degli elementi di Variabilità nel software.
 
 I \textit{Features Diagrams} si presentano come un albero and-or, dove i nodi identificano le \textit{features} e gli archi le relazioni tra queste. Le relazioni possibili sono:
 
@@ -517,7 +480,6 @@ I \textit{Features Diagrams} si presentano come un albero and-or, dove i nodi id
 \end{itemize}
 
 In un contesto più ampio, l'analisi delle \textit{features} e la creazione di \textit{Features Diagrams} sono essenziali per definire e comprendere le variabili che caratterizzano i diversi membri di una linea di prodotti software, facilitando così la configurazione e l'adattamento delle applicazioni in base alle esigenze specifiche.
-% In sintesi, i \textit{Features Diagrams} sono uno strumento potente che consente di visualizzare, analizzare e gestire la Variabilità nei sistemi software, facilitandone progettazione, sviluppo e manutenzione.
 
 
 \begin{mdframed}
@@ -549,19 +511,7 @@ Come già discusso in \cref{sec:spl}, i difetti di ambiguità nei requisiti, pos
 La \textsf{Variabilità} in un requisito rappresenta la \textit{capacità} del requisito stesso di corrispondere a più di una possibile configurazione e di essere modificato o esteso a seconda del contesto specifico in cui viene implementato.
 \end{mdframed}
 
-% Di seguito una classificazione dei difetti di ambiguità che indicano potenziali punti di variabilità:
 In \cite{oai:it.cnr:prodotti:458001}, si propone una classificazione dei difetti di ambiguità che possono indicare la presenza di Variabilità nei requisiti\footnote{L’analisi fornita è pensata per un testo scritto in lingua inglese.}, facilitando così l'analisi e la gestione della stessa all'interno del processo di sviluppo delle linee di prodotto software.
-
-% \begin{itemize}
-% \item \textsf{Vaghezza} -- Il requisito contiene parole che non hanno un significato quantificabile univoco. Parole vaghe includono: accettabile, chiaro, difficile, facile, importante, irrilevante, significativo, semplice, forte, ingiusto, e così via.
-% \item \textsf{Debolezza} -- Il requisito esprime una forma di soggettività attraverso termini come può, potrebbe, magari... La debolezza è direttamente classificabile come variabilità quando introduce una possibile scelta nella configurazione del sistema o l'opzionalità di una caratteristica.
-% \item \textsf{Forma Passiva} -- Il requisito risulta ambiguo se non c'è indicazione dell'agente che compie l'azione (mancanza della preposizione "da"). Se diverse varianti del prodotto sono previste per differenti agenti, potrebbe esserci un punto di variabilità.
-% \item \textsf{Opzionalità} -- Il requisito contiene una parte opzionale, che può o meno essere considerata. Termini che identificano l'opzionalità sono: eventualmente, se necessario, opzionalmente, possibile, probabilmente... L'opzionalità è direttamente classificabile come una variabilità quando introduce una possibile scelta nella configurazione del sistema.
-% \item \textsf{Moltiplicità} -- Il requisito non si riferisce a un singolo oggetto ma affronta un elenco di oggetti, tipicamente usando disgiunzioni o congiunzioni (e, o, e/o, ...), e ciò è una ben nota fonte di ambiguità. In particolare, la congiunzione o disgiunzione di frasi nominali (NP multiplicità) probabilmente evidenzia una gamma di feature.
-% \item \textsf{Clausole di Fuga della Variabilità} -- Queste sono clausole subordinate che contengono congiunzioni come se, dove, quando, se... e un verbo come disponibile, fornito, implementato, ad esempio nella richiesta "Se la diagnostica a runtime è implementata, tutti i fallimenti dovrebbero essere registrabili nel registratore di bordo". Le clausole di fuga della variabilità rivelano chiaramente un punto di variazione.
-% \end{itemize}
-
-% Questa classificazione aiuta a identificare gli aspetti dei requisiti che possono indicare la presenza di variabilità, facilitando così l'analisi e la gestione della stessa all'interno del processo di sviluppo delle linee di prodotto software.
 
 
 \subsubsection{Vaghezza}
@@ -608,8 +558,6 @@ Dato un testo, l'elaborazione del linguaggio naturale prevede diverse fasi per a
 \item \textsf{Analisi sintattica} -- Studia la struttura grammaticale delle frasi e le relazioni di dipendenza tra i token: analizza come le parole si combinano tra loro per creare un significato. Questo permette di identificare soggetto, verbo, complemento e altre parti del discorso all'interno di una frase.
 \item \textsf{Analisi semantica} -- Qui l'attenzione si concentra sul significato delle frasi in riferimento al contesto dato. Questa fase cerca di interpretare il significato delle parole e delle frasi in base al contesto in cui vengono utilizzate, come ad esempio l'identificazione di sinonimi o l'interpretazione di espressioni idiomatiche.
 \end{enumerate}
-
-% Le fasi di analisi sopra elencate sono molto simili a quelle usate per l'analisi dei linguaggi formali; esse si concentrano però sulla comprensione del significato, piuttosto che sull'esecuzione di istruzioni.
 
 
 \section{L'ecosistema \spacy}
@@ -795,8 +743,6 @@ crescita costante
 
 Esistono altri componenti in \spacy simili a \texttt{Matcher} che permettono di eseguire il Rule-Based Matching per casi specifici: \texttt{PhraseMatcher} (per l'identificazione di frasi) che sarà utile per l'implementazione del parser di \toody e \texttt{DependencyMatcher} (per identificare relazioni di dipendenza sintattica). Ciascuno di essi ha un approccio diverso per la definizione dei pattern.
 
-% L'oggetto \texttt{PhraseMatcher} è utile per identificare frasi intere, piuttosto che singoli token e utilizza pattern basati sul testo; mentre \texttt{DependencyMatcher} è pensato per identificare pattern basati sulle relazioni di dipendenza sintattica tra i token.
-
 
 \subsubsection{PhraseMatcher}
 Come anticipato, \texttt{PhraseMatcher} è un componente di \spacy che, analogamente a \texttt{Matcher}, serve per trovare sequenze di parole o frasi all'interno di un documento. Tuttavia, a differenza di \texttt{Matcher} che cerca token basandosi su pattern di attributi, \texttt{PhraseMatcher} individua occorrenze di frasi specifiche.
@@ -855,8 +801,6 @@ for match_id, start, end in matches:
 % CAPITOLO 4
 \chapter{\toody analyzer}
 \label{ch:parser}
-% Inizi il capitolo ricordando i requisiti: cercare indicatori contenuti in dizionari \dots cercare le seguenti costruzioni sintattiche: \dots (Va raccontato a grandissime linee cosa cerchiamo e perché. Oppure (meglio) mettere un puntatore alla sezione in cui si dice cosa va cercato: quindi quali dizionari e quali regole sulla struttura della frase).
-
 In questo capitolo verranno presentati i diversi algoritmi che compongono il parser dell'analisi del testo e che permettono a \toody di identificare i punti Variabilità nei documenti dei requisiti.
 
 L'analisi effettuata si basa sui principi definiti nella \cref{sec:indicatori}, nella quale sono delineate una serie di caratteristiche linguistiche che suggeriscono la presenza di variabilità nei requisiti. Tra queste si ricordano: uso di termini vaghi e opzionali, forme passive e specifiche costruzioni sintattiche con congiunzioni (\textit{if}, \textit{when}, \textit{where}).
@@ -1146,11 +1090,6 @@ def verb_conjunction_parser(
 \end{mdframed}
 
 \noindent La funzione accetta tre parametri: \texttt{doc\_requisiti} che rappresenta il doc-object del documento dei requisiti da analizzare, \texttt{content1} che definisce il testo del documento dei requisiti e \texttt{verb\_conjunction\_memory}, struttura usata per memorizzare le congiunzioni verbali identificate.
-
-% La funzione accetta tre parametri: \texttt{doc\_requisiti} che rappresenta il doc-object del documento dei requisiti da analizzzare, \texttt{content1} che definisce il testo del documento dei requisiti e \texttt{passive\_memory}, struttura usata per memorizzare le frasi passive identificate.
-
-% La funzione prende quattro parametri: \texttt{doc\_requisiti} che rappresenta il doc-object del documento dei requisiti da analizzare, \texttt{content1} e \texttt{content2} che rappresentano rispettivamente il testo del documento dei requisiti e il diziorario dei termini da cercare e \texttt{lexical\_memory} che è una struttura dati necessaria per tenere traccia delle parole già etichettate dal client\footnote{Anticipiamo qua una funzionalità di \toody: il fruitore della web-app ha la possibilità di etichettare manualmente i match trovati dall'algoritmo di ricerca. Il client invierà quindi i match etichettati in modo che il server possa riconoscerli e rispettare le etichettature già effettuate.}.
-
 
 \begin{mdframed}
 \small
@@ -1564,7 +1503,6 @@ Nel caso l'utente si sia appena registrato, \toody lo informa\footnote{Le inform
 Effettuate le prime \textit{request}, la \textsf{main page} si trasforma in una dashboard personale. In questa pagina, l'utente può visualizzare l'elenco delle sue precedenti interazioni (ordinabili per nome o data), con la possibilità di rinominarle, scaricarle\footnote{La funzione di download permette di salvare sul proprio dispositivo un file \textit{zip} contenente il testo dei requisiti, il dizionario usato, i risultati dell'analisi e un file contenente il testo con i match evidenziati.} o eliminarle.
 
 Le \textit{request} possono essere visualizzate cliccando sul singolo nome: questo reindirizza l'utente alla \textsf{second page} contenente tutti i dati dalla richiesta selezionata (testo, dizionario e risultati).
-% Questa funzionalità permette agli utenti di gestire facilmente il loro lavoro, creando un archivio personale delle attività svolte.
 
 
 \newpage
@@ -1780,13 +1718,7 @@ Per eseguire l'analisi del documento dei requisiti, l'utente interagisce con l'a
 
 La richiesta inviata dal client contiene il testo del documento dei requisiti, il dizionario dei termini per l'analisi lessicale, il nome della richiesta e un oggetto che conserva le informazioni sullo stato corrente dell'applicazione\footnote{L'oggetto in questione (\texttt{memory}) è un dizionario. Esso agisce come memoria per le etichette con le quali l'utente ha marcato i risultati visualizzati sulla pagina \html dopo l'ultimo utilizzo.}. Il server riceve la richiesta e la elabora utilizzando le funzionalità di parsing e analisi del linguaggio naturale fornite da \spacy, come approfondito nel \cref{ch:nlp}.
 
-% Dopo l'elaborazione, il server archivia le informazioni della richiesta in un database, permettendo una gestione efficiente dei dati e una possibile revisione o analisi futura. Successivamente, il server prepara una risposta, che include i risultati dell'analisi, e la invia indietro al client.
-
 Una volta ottenuta la risposta dal server, la funzione \texttt{contaParole} procede con l'elaborazione dei dati ricevuti. Il codice \javascript genera dinamicamente una rappresentazione \html dei risultati, creando \textit{card} dei match lessicali e sintattici per ciascuna delle categorie analizzate: risultati dell'analisi lessicale, di quella sintattica in forma passiva, delle congiunzioni verbali e delle frasi congiuntive.
-
-% Ogni "card" di risultato visualizza le informazioni in modo chiaro e organizzato, facilitando all'utente la comprensione dei risultati e permettendo una navigazione intuitiva tra le diverse categorie di analisi. Questa presentazione dinamica dei risultati trasforma l'analisi complessa dei documenti dei requisiti in un'esperienza utente semplice e interattiva.
-
-% In conclusione, l'interazione tra client e server in TooDY dimostra un'architettura sofisticata e ben progettata, dove il client non solo invia e riceve dati dal server, ma svolge anche un ruolo cruciale nella presentazione e visualizzazione dei risultati, rendendo l'analisi dei requisiti software un processo più accessibile e intuitivo.
 
 In conclusione l'applicazione si basa su una semplice struttura client-server che sfrutta le funzionalità di \spacy per l'analisi del linguaggio naturale e \flask per la gestione delle richieste \http. Il server si concentra sull'elaborazione dei dati, mentre il client si occupa della presentazione dei risultati e dell'interazione con l'utente.
 
@@ -2255,7 +2187,6 @@ def login():
 
 
 \subsection{Logout utente}
-% La funzione \texttt{logout} del server \flask, protetta dal decoratore \texttt{@login\_required}, garantisce che solo gli utenti autenticati possano disconnettersi.
 Affinchè l'applicazione possa disconnettere gli utenti loggati, il server dispone della funzione \texttt{logout}: una procedura che usa il meccanismo \textsf{Flask-Login}\footnote{Quando un utente effettua il login, \textsf{Flask-Login} memorizza un identificatore univoco (\textsf{ID}) per l'utente nella sessione del browser, che sarà poi accessibile nelle richieste \http successive. Questa informazione è salvata in un cookie sicuro che il browser invia automaticamente al server assieme ad ogni richiesta.\\
 Nel momento in cui viene invocata \texttt{logout\_user}, \textsf{Flask-Login} cerca l'identificatore nella sessione attuale per determinare quale utente debba essere scollegato. Rimuove quindi l'\textsf{ID} dell'utente dalla sessione (pulendo ogni dato associato) e fa in modo che le richieste future non siano più autenticate come quell'utente.\\
 Le sessioni in Flask sono protette e non possono essere facilmente manomesse dal client: questo garantisce che l'\textsf{ID} dell'utente nella sessione sia affidabile.}, messo a disposizione dal framework, per terminare la sessione dell'utente corrente. Dopo aver effettuato la disconnessione, \texttt{logout} non fa altro che mostrare un \textit{flash-text} di notifica e reindirizzare l'utente alla pagina principale.
