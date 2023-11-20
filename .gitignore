@@ -1,6 +1,11 @@
-tags
 main.aux
+main.bcf
+main.bib
+main.bib.bbl
+main.bib.blg
 main.log
 main.out
 main.pdf
+main.run.xml
 main.toc
+tags
