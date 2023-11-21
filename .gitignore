@@ -1,11 +1,15 @@
 main.aux
+main.bbl
 main.bcf
-main.bib
 main.bib.bbl
 main.bib.blg
+main.blg
+main-blx.bib
 main.log
 main.out
 main.pdf
 main.run.xml
 main.toc
+refs.log
+refs.pdf
 tags
