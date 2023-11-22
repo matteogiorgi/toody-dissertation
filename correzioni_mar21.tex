@@ -23,8 +23,6 @@
 \usepackage{lmodern}
 \usepackage{float}
 \usepackage[backend=bibtex, style=numeric]{biblatex}
-\usepackage{enumitem}
-\usepackage{cleveref}
 
 
 \addbibresource{refs.bib}
@@ -33,8 +31,6 @@
 \crefname{figure}{Figura}{Figure}
 \crefname{section}{Sezione}{Sezioni}
 \crefname{chapter}{Capitolo}{Capitoli}
-\crefname{appendix}{Appendice}{Appendici}
-\crefrangeformat{section}{da~#3#1#4 a~#5#2#6}  %usare questo per il plurale
 
 
 \mdfsetup{
@@ -277,7 +273,7 @@
 \setcounter{page}{\value{tempCntr}}
 Il lavoro si colloca in una linea di ricerca per la specifica di linee di prodotto software (\spl) a partire da documenti di requisiti in linguaggio naturale.
 
-Le ambiguità in un documento dei requisiti normalmente causano incoerenze tra l'aspettativa del cliente e il prodotto sviluppato, e spesso portano a rielaborazioni indesiderate degli artefatti. Tuttavia, un termine ambiguo può anche essere usato come mezzo per rimandare una decisione. Sviluppando questa idea, è stato precedentemente mostrato che il rilevamento dell'ambiguità può anche essere usato come un modo per catturare aspetti nascosti di variabilità nei requisiti, usando nella ricerca indicatori specifici per la variabilità che sono una variazione rispetto agli indicatori di ambiguità noti.
+Le ambiguità in un documento dei requisiti normalmente causano incoerenze tra l'aspettativa del cliente e il prodotto sviluppato, e spesso portano a rielaborazioni indesiderate degli artefatti.  Tuttavia, un termine ambiguo può anche essere usato come mezzo per rimandare una decisione. Sviluppando questa idea, è stato precedentemente mostrato che il rilevamento dell'ambiguità può anche essere usato come un modo per catturare aspetti nascosti di variabilità nei requisiti, usando nella ricerca indicatori specifici per la variabilità che sono una variazione rispetto agli indicatori di ambiguità noti.
 
 In questo lavoro di tesi, partendo da un prototipo iniziale, è stato realizzato uno strumento di elaborazione del linguaggio naturale  per individuare, in un documento dei requisiti, indicatori di variabilità. Il tool realizza funzionalità di analisi lessicale e sintattica ed è  implementato usando la libreria \spacy.
 \end{abstract}
@@ -296,23 +292,23 @@ In questo lavoro di tesi, partendo da un prototipo iniziale, è stato realizzato
 
 % CAPITOLO 1
 \chapter{Introduzione}
-L’abilità di sviluppare software di qualità ha inizio con una definizione precisa ed esaustiva dei requisiti richiesti: il documento dei requisiti, in tal senso, rappresenta l'elemento base sul quale si fonda l’intero ciclo di vita del progetto software. La redazione di tale documento tuttavia, non è compito semplice e ciò è principalmente dovuto alla natura ambigua e intrinsecamente imprecisa del linguaggio naturale comunemente utilizzato per esprimerlo. In un progetto software la formalizzazione dei requisiti è dunque pratica essenziale e, se non opportunamente curata, veicolo di ambiguità che spesso portano a interpretazioni errate, incoerenze ed eventuali fallimenti nel soddisfare le aspettative del cliente.
+L’abilità di sviluppare software di qualità ha inizio con una definizione precisa ed esaustiva dei requisiti richiesti: il documento dei requisiti, in tal senso, rappresenta l'elemento base sul quale si fonda l’intero ciclo di vita del progetto software. La redazione di tale documento tuttavia, non è compito semplice e ciò è principalmente dovuto alla natura ambigua ed intrinsecamente imprecisa del linguaggio naturale comunemente utilizzato per esprimerlo. In un progetto software la formalizzazione dei requisiti è dunque pratica essenziale e, se non opportunamente curata, possibile veicolo di ambiguità, che spesso portano a interpretazioni errate, incoerenze ed eventuali fallimenti nel soddisfare le aspettative del cliente.
 
-La presente tesi si colloca in questo scenario e si basa su un precedente lavoro \cite{livi}, concluso con lo sviluppo di un piccolo script eseguibile da riga di comando. Sebbene tale script rappresentasse un passo iniziale promettente, era limitato in termini di interfaccia utente e flessibilità di utilizzo. Per questo motivo è stato esteso il progetto iniziale, trasformandolo in un'applicazione più robusta e versatile.
-
-Il progetto implementa \toody (tool for detecting variability): una web-app focalizzata sull’identificazione della \textsf{Variabilità} nei documenti dei requisiti redatti in linguaggio naturale. L’obiettivo è quello di creare uno strumento facile e veloce da usare; un supporto concreto nell’analisi dei requisiti, utile ad individuare indicatori di variabilità. Questi indicatori corrispondono a punti di variabilità nella specifica di una linea di prodotti.
+Il presente lavoro di tesi si colloca in questo scenario, proponendo lo sviluppo di \toody (tool for detecting variability): una web-app focalizzata sull’identificazione della Variabilità \torevise{qui e anche dopo, perché maiuscola? semmai in corsivo la prima volta e normale minuscolo poi} nei documenti dei requisiti redatti in linguaggio naturale. L’obiettivo è quello di creare uno strumento facile e veloce da usare; un supporto concreto nell’analisi dei requisiti, \torevise{NO: utile a mitigare i problemi legati all’ambiguità linguistica e ridurre il divario tra le aspettative del cliente e il prodotto software sviluppato.} \torevise{MEGLIO: L’obiettivo è quello di creare uno strumento facile e veloce da usare; un supporto concreto nell’analisi dei requisiti, utile ad individuare indicatori di variabilità. Questi indicatori corrispondono a punti di variabilità nella specifica di una linea di prodotti. }
 
 
 \section{Strumenti utilizzati}
-Nell’ambito di questo progetto, sono stati utilizzati diversi strumenti che hanno facilitato lo sviluppo e la realizzazione del tool; tra questi, meritano una menzione particolare \flask e \spacy. \flask è un micro-framework per interfacce web, estremamente flessibile e leggero, che ha permesso di sviluppare un server dedicato all’elaborazione delle richieste relative all’analisi dei documenti dei requisiti e alla gestione di un database contenente lo storico di ciascun utente registrato al servizio web: l'utente può quindi modificare e analizzare i documenti caricati, verificandone la correttezza formale e controllandone i vari casi di ambiguità e variabilità. \spacy, invece, è una libreria open source di elaborazione del linguaggio naturale che ha fornito le funzionalità di analisi lessicale e sintattica necessarie per l’individuazione degli indicatori di variabilità nei documenti analizzati. La scelta di tali strumenti è stata dettata dalla necessità di avere un sistema flessibile in grado di gestire analisi linguistiche complesse.
+Nell’ambito di questo progetto, sono stati utilizzati diversi strumenti che hanno facilitato lo sviluppo e la realizzazione del tool; tra questi, meritano una menzione particolare \flask e \spacy. \flask è un micro-framework per interfacce web, estremamente flessibile e leggero, che ha permesso di sviluppare un server dedicato all’elaborazione delle richieste relative all’analisi dei documenti dei requisiti e alla gestione di un database contenente lo storico di ciascun utente registrato al servizio web: l'utente può quindi modificare e analizzare i documenti caricati, verificandone la correttezza formale e controllandone i vari casi di ambiguità e Variabilità. \spacy, invece, è una libreria open source di elaborazione del linguaggio naturale che ha fornito le funzionalità di analisi lessicale e sintattica necessarie per l’individuazione degli indicatori di Variabilità nei documenti analizzati. La scelta di tali strumenti è stata dettata dalla necessità di avere un sistema flessibile, efficiente e in grado di gestire complesse analisi linguistiche in modo efficace.
 
 Unitamente a ciò, l'interfaccia intuitiva della web-app facilita l'interazione con il sistema, permettendo agli utenti di gestire i documenti direttamente sulla piattaforma ed eseguire l'analisi in modo semplice e diretto. La possibilità di visualizzare in tempo reale i risultati dell'analisi è certamente uno strumento utile per le fasi di verifica e la validazione, promuovendo così un approccio più accurato e riflessivo nella definizione dei requisiti del software.
 
 
-\section{Motivazioni}
-L’idea alla base del progetto è quella di trasformare un termine ambiguo da ostacolo a risorsa, utilizzarlo come mezzo per rimandare alcune decisioni e, al contempo, identificare aspetti nascosti di variabilità nei requisiti.
+\section{Motivazioni e obiettivi}
+La necessità di una maggiore formalizzazione \torevise{formalizzazione??} e di nuovi strumenti che potessero assistere in modo efficace l'analisi dei requisiti ha rappresentato uno stimolo alla realizzazione di \toody.
 
-Le richieste iniziali del progetto delineavano la necessità di una piattaforma facilmente accessibile attraverso diversi sistemi operativi e questo requisito ha orientato la scelta verso lo sviluppo di una web-app, permettendo così un accesso ubiquo e una fruibilità trasversale, indipendentemente dal sistema utilizzato. L'interfaccia così realizzata, non solo facilita l'interazione con il sistema di analisi, ma integra la gestione dei documenti, fornendo all'utente uno strumento completo per l'elaborazione dei testi.
+L’idea alla base del progetto è quella di trasformare un termine ambiguo da ostacolo a risorsa, utilizzarlo come mezzo per rimandare alcune decisioni e, al contempo, identificare aspetti nascosti di Variabilità nei requisiti.
+
+Le richieste iniziali del progetto delineavano la necessità di una piattaforma eclettica \torevise{eclettica no, eh: è un aggettivo che sul sw non va bene}, facilmente accessibile attraverso diversi sistemi operativi e questo requisito ha orientato la scelta verso lo sviluppo di una web-app, permettendo così un accesso ubiquo e una fruibilità trasversale, indipendentemente dal sistema utilizzato. L'interfaccia così realizzata, non solo facilita l'interazione con il sistema di analisi, ma si evolve in una piattaforma efficiente, comprensiva di gestione dei documenti, fornendo all'utente uno strumento completo per l'elaborazione dei testi.
 
 
 \section{Struttura e contenuto}
@@ -322,7 +318,7 @@ La presente dissertazione è organizzata seguendo una logica chiara e progressiv
 
 \begin{mdframed}
 \small
-Il capitolo \textsf{\spl Engineering}\myref{ch:sple} approfondisce i vari paradigmi legati alle linee di prodotto software, esplorando metodologie come \textit{FAST}, \textit{RSEB} e \textit{FODA}. In particolare, si discutono le tecniche di analisi del dominio e la rappresentazione attraverso \textit{Features Diagrams}. Viene anche affrontata la tematica dell’ambiguità linguistica e come essa possa introdurre variabilità nei requisiti.
+Il capitolo \textsf{\spl Engineering}\myref{ch:sple} approfondisce i vari paradigmi legati alle linee di prodotto software, esplorando metodologie come \textit{FAST}, \textit{RSEB} e \textit{FODA}. In particolare, si discutono le tecniche di analisi del dominio e la rappresentazione attraverso \textit{Features Diagrams}. Viene anche affrontata la tematica dell’ambiguità linguistica e come essa possa introdurre Variabilità nei requisiti.
 
 \vspace{0.25cm}
 
@@ -330,12 +326,11 @@ Nella sezione \textsf{\nlp \& \spacy}\myref{ch:nlp}, si esplorano le fondamenta 
 
 \vspace{0.25cm}
 
-% Concluso \torevise{Conclusa} l'introduzione teorica, nella sezione \textsf{\toody analyzer}\myref{ch:parser} vengono presentati i dettagli implementativi del tool di analisi che fanno uso proprio dei concetti esposti nei capitoli precedenti.
-Conclusa l'introduzione teorica, nella sezione \textsf{\toody analyzer}\myref{ch:parser} vengono presentati i dettagli implementativi del tool di analisi che fanno uso proprio dei concetti esposti nei capitoli precedenti.
+Concluso \torevise{Conclusa} l'introduzione teorica, nella sezione \textsf{\toody analyzer}\myref{ch:parser} vengono presentati i dettagli implementativi del tool di analisi che fanno uso proprio dei concetti esposti nei capitoli precedenti.
 
 \vspace{0.25cm}
 
-Il cuore della tesi è rappresentato da \textsf{\toody web-app}\myref{ch:architettura}. In questo capitolo si fornisce un'analisi tecnica dettagliata del progetto: sono presentati l’interfaccia utente e l'architettura del server \flask.
+Il cuore della tesi è rappresentato da \textsf{\toody web-app}\myref{ch:architettura}. In questo capitolo si fornisce un'analisi tecnica dettagliata del progetto: sono presentati l'architettura del server \flask e l’interfaccia utente.
 
 \vspace{0.25cm}
 
@@ -344,7 +339,7 @@ In ultimo, nella sezione \textsf{Conclusioni}\myref{ch:conclusioni} si riflette 
 
 % {\centering \rule{0.5\linewidth}{0.1pt} \par\vspace{0.25cm}}
 
-\noindent L’elaborato intende fornire un contributo nell’ambito della ricerca relativa alla specifica di \textit{Software Product Line Engineering} a partire da documenti dei requisiti in linguaggio naturale. Attraverso l’implementazione di \toody, si punta a fornire uno strumento utile ed efficace per l’identificazione della variabilità, con l’obiettivo di migliorare la qualità del processo di analisi dei requisiti e del software prodotto.
+\noindent L’elaborato intende fornire un contributo nell’ambito della ricerca relativa alla specifica di \textit{Software Product Line Engineering} a partire da documenti dei requisiti in linguaggio naturale. Attraverso l’implementazione di \toody, si punta a fornire uno strumento utile ed efficace per l’identificazione della Variabilità, con l’obiettivo di migliorare la qualità del processo di analisi dei requisiti e del software prodotto.
 
 
 % PAGINA BIANCA
@@ -370,29 +365,28 @@ Gli artefatti possono includere documenti, codici sorgente, test e qualsiasi alt
 \label{sec:spl}
 La problematica delle ambiguità nei documenti dei requisiti porta a importanti considerazioni riguardo alcune specifiche caratterisciche di questi ultimi: vaghezza, opzionalità, debolezza e molteplicità possono talvolta indicare una possibile flessibilità, sia nelle scelte di progettazione e implementazione, che nelle decisioni di configurabilità. Tale condizione permette di definire esattamente i punti in cui i prodotti possono differire e raggrupparli in famiglie.
 
-In questo contesto, le caratteristiche di flessibilità appena descritte sono chiamate variabilità e rappresentano il fondamento dello sviluppo software dedicato alla realizzazione di famiglie di sistemi correlati, noti come \textit{Software Product Lines}.
+In questo contesto, le caratteristiche di flessibilità appena descritte sono chiamate Variabilità e rappresentano il fondamento dello sviluppo software dedicato alla realizzazione di famiglie di sistemi correlati, noti come \textit{Software Product Lines}.
 
 \begin{mdframed}
 \small
-La \textsf{Software Product Line Engineering} è un paradigma di sviluppo software che modella le caratteristiche comuni e quelle di variabilità di una famiglia di sistemi correlati, al fine di massimizzare il riutilizzo e ridurre i costi di sviluppo.
+La \textsf{Software Product Line Engineering} è un paradigma di sviluppo software che modella le caratteristiche comuni e quelle di Variabilità di una famiglia di sistemi correlati, al fine di massimizzare il riutilizzo e ridurre i costi di sviluppo.
 \end{mdframed}
 
 La \textit{Software Product Line Engineering} è caratterizzata da due processi chiave: \textit{Domain Engineering} e \textit{Application Engineering}. Questi processi sono fondamentali per la progettazione, sviluppo e manutenzione di linee di prodotti software che condividono funzionalità comuni, ma che possono variare in base a specifiche esigenze.
 
 Il processo di \textsf{Domain Engineering} si concentra sulla creazione di asset riutilizzabili per una linea di prodotto: esso analizza le esigenze delle diverse applicazioni, definendo un framework che rappresenta le caratteristiche comuni e variabili di una \spl. L'obiettivo è sviluppare componenti e funzionalità che possano essere condivise attraverso vari prodotti della linea.
 
-% Dopo la definizione gli asset comuni, la \textsf{Application Engineering} sfrutta tali caratteristiche per sviluppare applicazioni specifiche: questo passaggio coinvolge la creazione di software basati sul framework \torevise{creazione di software che soddifano la specifica definita nella fase precedente.} sviluppato nella fase precedente. L'obiettivo è garantire che ogni prodotto derivato sia allineato con le esigenze degli utenti, sfruttando al contempo le funzionalità comuni definite precedentemente.
-Dopo la definizione gli asset comuni, la \textsf{Application Engineering} sfrutta tali caratteristiche per sviluppare applicazioni specifiche: questo passaggio coinvolge la creazione di software che soddifano la specifica definita nella fase precedente. L'obiettivo è garantire che ogni prodotto derivato sia allineato con le esigenze degli utenti, sfruttando al contempo le funzionalità comuni definite precedentemente.
+Dopo la definizione gli asset comuni, la \textsf{Application Engineering} sfrutta tali caratteristiche per sviluppare applicazioni specifiche: questo passaggio coinvolge la creazione di software basati sul framework \torevise{creazione di software che soddifano la specifica definita nella fase precedente.} sviluppato nella fase precedente. L'obiettivo è garantire che ogni prodotto derivato sia allineato con le esigenze degli utenti, sfruttando al contempo le funzionalità comuni definite precedentemente.
 
 
 
 
 \subsection{I paradigmi della \sple}
-Nel contesto delle \textit{Software Product Lines}, l'introduzione della variabilità nel ciclo di sviluppo è direttamente correlata alla definizione di \textit{feature}, in quanto funzionalità o caratteristica dei prodotti software.
+Nel contesto delle \textit{Software Product Lines}, l'introduzione della Variabilità nel ciclo di sviluppo è direttamente correlata alla definizione di \textit{feature}, in quanto funzionalità o caratteristica dei prodotti software.
 
-A tutti i livelli di astrazione, la descrizione di una linea di prodotto è opportunamente catturata da un modello di \textit{feature} e si compone di una parte costante e di una variabile. La prima è riferita a tutti gli aspetti che accomunano i prodotti della famiglia, mentre la seconda descrive quelle caratteristiche, che abbiamo denominato variabilità, utilizzate per differenziare un prodotto da un altro.
+A tutti i livelli di astrazione, la descrizione di una linea di prodotto è opportunamente catturata da un modello di \textit{feature} e si compone di una parte costante e di una variabile. La prima è riferita a tutti gli aspetti che accomunano i prodotti della famiglia, mentre la seconda descrive quelle caratteristiche, che abbiamo denominato Variabilità, utilizzate per differenziare un prodotto da un altro.
 
-La gestione efficace della variabilità è la chiave per sfruttare appieno i benefici della \spl, come la riduzione dei costi di sviluppo e la velocizzazione del \textit{time-to-market}. A questo proposito, diversi paradigmi e metodologie sono stati proposti: ciascuno fornisce frameworks e pratiche per identificare e modellare la variabilità attraverso l'intero ciclo di vita del software.
+La gestione efficace della Variabilità è la chiave per sfruttare appieno i benefici della \spl, come la riduzione dei costi di sviluppo e la velocizzazione del \textit{time-to-market}. A questo proposito, diversi paradigmi e metodologie sono stati proposti: ciascuno fornisce frameworks e pratiche per identificare e modellare la Variabilità attraverso l'intero ciclo di vita del software.
 
 Vediamo adesso \fast e \rseb: entrambi basati sulla notazione \uml\footnote{\uml, acronimo di \textit{Unified Modeling Language}, è uno standard di modellazione utilizzato per specificare, visualizzare, costruire e documentare gli artefatti di un sistema software.}, il primo paradigma si focalizza sull'identificazione di \textit{feature} comuni, mentre il secondo enfatizza il riutilizzo guidato dai casi d'uso \cite{griss:favaro:alessandro, harsu}.
 
@@ -408,7 +402,7 @@ Il processo di \fast può essere suddiviso in tre fasi:
 \item \textsf{Application Engineering} -- Nella fase finale, gli asset comuni identificati nelle fasi precedenti vengono utilizzati per sviluppare prodotti specifici. Questo processo è incentrato sull'implementazione e sull'adattamento a precise esigenze di mercato o del cliente.
 \end{itemize}
 
-In sintesi \fast, attraverso l'analisi orientata alle \textit{features}, offre un approccio sistematico per identificare e gestire la variabilità tra i prodotti software.
+In sintesi \fast, attraverso l'analisi orientata alle \textit{features}, offre un approccio sistematico per identificare e gestire la Variabilità tra i prodotti software.
 
 
 \subsubsection{\rseb}
@@ -417,18 +411,18 @@ Il modello \rseb (\textit{REuse-Driven Software Engineering Business}) \cite{gri
 Il processo può essere suddiviso nelle seguenti fasi:
 
 \begin{itemize}
-\item \textsf{Requirements Engineering} -- Nella fase iniziale, i requisiti vengono identificati e modellati principalmente attraverso i casi d'uso. I punti di variazione, ovvero le aree in cui si prevede una variabilità del software, vengono definiti in questo stadio.
+\item \textsf{Requirements Engineering} -- Nella fase iniziale, i requisiti vengono identificati e modellati principalmente attraverso i casi d'uso. I punti di variazione, ovvero le aree in cui si prevede una Variabilità del software, vengono definiti in questo stadio.
 \item \textsf{Architecture Family Engineering} -- Qui viene progettata un'architettura stratificata per la linea di prodotti, avvalendosi ancora una volta dei casi d'uso come strumento principale per la definizione delle strutture e delle interazioni chiave.
 \item \textsf{Component System Engineering} -- Questa fase si concentra sulla creazione di componenti riutilizzabili, che saranno poi impiegati nella fase successiva per costruire prodotti specifici.
 \item \textsf{Application System Engineering} -- In ultimo, i prodotti vengono realizzati utilizzando i componenti definiti e sviluppati nelle fasi precedenti. L'obiettivo è di produrre soluzioni software che soddisfino le esigenze specifiche degli utenti, mantenendo al contempo un alto livello di coerenza e riutilizzo all'interno della \spl.
 \end{itemize}
 
-In sintesi, \rseb rappresenta un modello con un approccio orientato al riutilizzo, attraverso il quale gli sviluppatori possono affrontare con maggiore efficacia la complessità e la variabilità dei prodotti software.
+In sintesi, \rseb rappresenta un modello con un approccio orientato al riutilizzo, attraverso il quale gli sviluppatori possono affrontare con maggiore efficacia la complessità e la Variabilità dei prodotti software.
 
 
 \subsection{ Il paradigma \foda}
 L'analisi del dominio orientata alle caratteristiche o \foda (\textit{Feature-Oriented Domain Analysis}) \cite{kang:cohen:hess:nowak:peters}
-è considerato una pietra miliare nell'ambito della \textit{Software Product Line Engineering} perché introduce il concetto di \textit{feature} come elemento centrale nell'analisi del dominio e nella modellazione della variabilità. Il paradigma fornisce un metodo sistematico per identificare e rappresentare le caratteristiche comuni e le variabilità tra prodotti simili all'interno di un dominio, facilitando così la progettazione e lo sviluppo di \spl.
+è considerato una pietra miliare nell'ambito della \textit{Software Product Line Engineering} perché introduce il concetto di \textit{feature} come elemento centrale nell'analisi del dominio e nella modellazione della Variabilità. Il paradigma fornisce un metodo sistematico per identificare e rappresentare le caratteristiche comuni e le Variabilità tra prodotti simili all'interno di un dominio, facilitando così la progettazione e lo sviluppo di \spl.
 
 Una \textit{feature} viene definita come un aspetto evidente o distintivo del software, percepito dall'utente come una qualità o una caratteristica specifica del sistema. L'essenza del \foda è di rappresentare il sistema software in termini di \textit{features} e di utilizzare tali rappresentazioni per identificare e modellare aspetti comuni e variabili delle applicazioni.
 
@@ -473,7 +467,7 @@ Durante la fase di \textit{Domain Modelling}, viene creata una rappresentazione 
 
 \subsubsection{Features Diagram}
 \label{sec:features_diagram}
-Come anticipato, i \textit{Features Diagrams} sono un elemento fondamentale nell'approccio \foda: essi rappresentano il sistema in termini di funzionalità e componenti, oltre a fornire uno schema delle \textit{features} del sistema e delle loro interazioni. Questo facilita la comprensione e la gestione degli elementi di variabilità nel software.
+Come anticipato, i \textit{Features Diagrams} sono un elemento fondamentale nell'approccio \foda: essi rappresentano il sistema in termini di funzionalità e componenti, oltre a fornire uno schema delle \textit{features} del sistema e delle loro interazioni. Questo facilita la comprensione e la gestione degli elementi di Variabilità nel software.
 
 I \textit{Features Diagrams} si presentano come un albero and-or, dove i nodi identificano le \textit{features} e gli archi le relazioni tra queste. Le relazioni possibili sono:
 
@@ -495,8 +489,7 @@ Consideriamo un sistema che descrive il caso di uno \textsf{Shopping Online}, co
 \begin{itemize}
 \item Il software di ciascuna applicazione è determinato dalle funzionalità offerte: \textit{E-Shop} (\textit{feature} radice) identifica la \textit{Software Product Line} per gli e-commerce.
 \item Ogni sistema di shopping online deve implementare \textit{Catalogue}, \textit{Payment}, \textit{Security} e opzionalmente \textit{Search}.
-% \item Gli e-commerce devono implementare \torevise{la Security in una (sola) delle due modalità: High o Standard. Inoltre ogni E-shop deve offrire ....}\textit{Security} \textit{High}/\textit{Standard} e offrire diversi possibili \textit{Payment}, quali \textit{Bank transfer} e \textit{Credit card} (eventualmente entrambi).
-\item Gli e-commerce devono implementare la \textit{Security} in una delle due modalità: \textit{High} o \textit{Standard}. Inoltre ogni \textit{E-shop} deve offrire  diversi possibili \textit{Payment}, quali \textit{Bank transfer} e \textit{Credit card} (eventualmente entrambi).
+\item Gli e-commerce devono implementare \torevise{la Security in una (sola) delle due modalità: High o Standard. Inoltre ogni E-shop deve offrire ....}\textit{Security} \textit{High}/\textit{Standard} e offrire diversi possibili \textit{Payment}, quali \textit{Bank transfer} e \textit{Credit card} (eventualmente entrambi).
 \item Un vincolo trasversale nel diagramma stabilisce che i sistemi di shopping che includono il \textit{Payment} con \textit{Credit card} devono implementare una \textit{Security} \textit{High}.
 \end{itemize}
 
@@ -509,80 +502,47 @@ Consideriamo un sistema che descrive il caso di uno \textsf{Shopping Online}, co
 \end{mdframed}
 
 
-\section{Indicatori di variabilità}  % tipi di ambiguità e indicatori dei tipi di ambiguità
+\section{Indicatori di Variabilità}  % tipi di ambiguità e indicatori dei tipi di ambiguità
 \label{sec:indicatori}
-Come già discusso in \cref{sec:spl}, i difetti di ambiguità nei requisiti, possono fornire un'indicazione di variabilità (relativa al design, alle scelte implementative o agli aspetti di configurabilità).
+Come già discusso in \cref{sec:spl}, i difetti di ambiguità nei requisiti, possono fornire un'indicazione di Variabilità (relativa al design, alle scelte implementative o agli aspetti di configurabilità).
 
 \begin{mdframed}
 \small
 La \textsf{Variabilità} in un requisito rappresenta la \textit{capacità} del requisito stesso di corrispondere a più di una possibile configurazione e di essere modificato o esteso a seconda del contesto specifico in cui viene implementato.
 \end{mdframed}
 
-In \cite{oai:it.cnr:prodotti:424687,oai:it.cnr:prodotti:474934,oai:it.cnr:prodotti:458001}, si propone una classificazione dei difetti di ambiguità che possono indicare la presenza di variabilità nei requisiti\footnote{L’analisi fornita è pensata per un testo scritto in lingua inglese.}, facilitando così l'analisi e la gestione della stessa all'interno del processo di sviluppo delle linee di prodotto software.
+In \cite{oai:it.cnr:prodotti:458001}, si propone una classificazione dei difetti di ambiguità che possono indicare la presenza di Variabilità nei requisiti\footnote{L’analisi fornita è pensata per un testo scritto in lingua inglese.}, facilitando così l'analisi e la gestione della stessa all'interno del processo di sviluppo delle linee di prodotto software.
 
 
-\subsubsection{\textsf{Vaghezza}}
+\subsubsection{Vaghezza}
 Il requisito contiene parole che non hanno un significato quantificabile univoco come: \textit{acceptable}, \textit{bad}, \textit{clear}, \textit{clearly}, \textit{difficult}, \textit{easy}, \textit{good}, \textit{hard}, \textit{important}, \textit{inefficient}, \textit{irrelevant}, \textit{significant}, \textit{simple}, \textit{strong} e \textit{unfair}.
 
 
-\subsubsection{\textsf{Debolezza}}
-Il requisito contiene un verbo \textit{debole} che rende la frase non-imperativa. Termini che indicano soggettività includono \textit{can}, \textit{could} e \textit{may}. I casi di debolezza sono direttamente classificabili come variabilità quando introducono una scelta nella configurazione del sistema o una opzionalità in una \textit{feature}.
+\subsubsection{Debolezza}
+Il requisito contiene un verbo \textit{debole} che rende la frase non-imperativa. Termini che indicano soggettività includono \textit{can}, \textit{could} e \textit{may}. I casi di debolezza sono direttamente classificabili come Variabilità quando introducono una scelta nella configurazione del sistema o una opzionalità in una \textit{feature}.
 
 
-\subsubsection{\textsf{Forma passiva}}
+\subsubsection{Forma passiva}
 Una frase in forma passiva è considerata ambigua se non ci sono indicazioni dell'agente che compie l'azione (mancanza della preposizione \textit{by}). Se diverse varianti del prodotto sono previste per i differenti agenti che compiono l'azione, potrebbe esserci un punto di variabilità.
 
 
-\subsubsection{\textsf{Opzionalità}}
-% Il requisito contiene una parte opzionale (che può essere omessa). \torevise{Il requisito contiene un esplicito indicatore di opzionalità. Termini che possono essere indicatori di opzionalità sono:} Termini che in questo caso identificano l'opzionalità sono: \textit{eventually}, \textit{if} \textit{needed}, \textit{optionally}, \textit{possibly} e \textit{probably}. L'opzionalità è direttamente classificabile come una variabilità quando introduce una possibile scelta nella configurazione del sistema.
-Il requisito contiene un esplicito indicatore di opzionalità. Termini che possono essere indicatori di opzionalità sono: \textit{eventually}, \textit{if} \textit{needed}, \textit{optionally}, \textit{possibly} e \textit{probably}. L'opzionalità è direttamente classificabile come una variabilità quando introduce una possibile scelta nella configurazione del sistema.
+\subsubsection{Opzionalità}
+Il requisito contiene una parte opzionale (che può essere omessa). \torevise{Il requisito contiene un esplicito indicatore di opzionalità. Termini che possono essere indicatori di opzionalità sono:} Termini che in questo caso identificano l'opzionalità sono: \textit{eventually}, \textit{if} \textit{needed}, \textit{optionally}, \textit{possibly} e \textit{probably}. L'opzionalità è direttamente classificabile come una Variabilità quando introduce una possibile scelta nella configurazione del sistema.
 
 
-\subsubsection{\textsf{Molteplicità}}
-% Il requisito non si riferisce a un singolo oggetto ma si rivolge a più oggetti, tipicamente usando disgiunzioni quali \textit{and}, \textit{or} e \textit{and/or}. In particolare, per disgiunzioni di frasi nominali (NP-molteplicità) è probabile che il requisito evidenzi una \torevise{disgiunzione tra features.} intera gamma di \textit{features}.
-Il requisito non si riferisce a un singolo oggetto ma si rivolge a più oggetti, tipicamente usando disgiunzioni quali \textit{and}, \textit{or} e \textit{and/or}. In particolare, per disgiunzioni di frasi nominali (NP-molteplicità) è probabile che il requisito evidenzi una disgiunzione tra \textit{features}.
+\subsubsection{Molteplicità}
+Il requisito non si riferisce a un singolo oggetto ma si rivolge a più oggetti, tipicamente usando disgiunzioni quali \textit{and}, \textit{or} e \textit{and/or}. In particolare, per disgiunzioni di frasi nominali (NP-molteplicità) è probabile che il requisito evidenzi una \torevise{disgiunzione tra features.} intera gamma di \textit{features}.
 
 
-\subsubsection{\textsf{If, when, where}}
+\subsubsection{If, when, where}
 Questi sono casi di clausole subordinate che, oltre a contenere le suddette congiunzioni, presentano anche un verbo come \textit{available}, \textit{provided} e \textit{implemented}.
 
 
-\subsection{Caso di studio: \textsf{Coffee Vending-Machine}}
-% \torevise{Tutta la sezione 2.2, che motiva l'intero lavoro, potrebbe essere curata un pochino di più, in modo da far capire in modo semplice al lettore la corrispondenza tra queste classi di indicatori e i punti di variabilità. Magari con degli esempi presi dai nostri articoli}
-Lo scopo di questa sezione è quella di fornire un esempio pratico nel quale l'analisi della variabilità viene condotta attraverso un'attenta disamina dei requisiti espressi. Come evidenziato in \cite{oai:it.cnr:prodotti:474934}, il caso di studio espone la metodologia di identificazione della variabilità a partire da potenziali ambiguità nei requisiti.
 
-\begin{mdframed}
-\small
-Consideriamo i seguenti requisiti per una \textsf{Coffee Vending-Machine}:
-\begin{itemize}[itemsep=0pt]
-\item[\textbf{R1.}] After inserting a suitable coin, the user shall choose a beverage and select the amount of sugar.
-\item[\textbf{R2.}] The machine shall offer, as beverages, coffee and cappuccino or tea.
-\item[\textbf{R3.}] The machine shall always offer coffee.
-\item[\textbf{R4.}] A ringtone possibly has to be played after beverage delivery.
-\item[\textbf{R5.}] After the beverage is taken, the machine returns idle.
-\item[\textbf{R6.}] The British market requires tea and excludes any ring tone.
-\end{itemize}
-\end{mdframed}
-
-Nel requisito \textbf{R1} si parla di inserire una moneta valida (\textit{suitable coin}): questa \textsf{vaghezza} è un indicatore di variabilità poichè la macchina potrebbe essere configurata per accettare diverse valute. Essa può essere rappresentata con una scelta nel diagramma delle \textit{features}.
-
-Il requisito \textbf{R2} contiene le disgiunzioni \textit{and} e \textit{or}, indicando che la macchina potrebbe offrire caffè e cappuccino o tè. La frase del requisito successivo tuttavia, afferma che il caffè debba essere sempre offerto, indicando la presenza di una \textit{feature} obbligatoria. Questo requisito è un esempio di \textsf{molteplicità} che può essere rappresentata con una disgiunzione nel diagramma delle \textit{features}.
-
-Il requisito \textbf{R4} specifica che un avviso sonoro potrebbe seguire la consegna di una bevanda (\textit{a ringtone possibly has to be played}), indicando questa come una \textit{feature} opzionale della macchina.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\textwidth]{coffee.png}
-\caption{\textit{Feature Diagram} per il caso di studio \textsf{Coffee Vending-Machine}.}
-\label{fig:coffee}
-\end{figure}
-
-Nei requisiti forniti sono identificabili due vincoli di \textit{inter-feature}\footnote{Un requisito può indicare alcuni vincoli che esprimono implicazioni o relazioni di mutua esclusione tra \textit{features}. Gli indicatori sono termini come \textit{imply}, \textit{require}, \textit{entail}, \textit{implicate}, \textit{demand}, \textit{exclude}, \textit{rule out}, \textit{mutually}, \textit{exclusive} e \textit{need}.}: a questo proposito \textbf{R6} introduce un vincolo per il mercato britannico, escludendo l'avviso sonoro e rendendo obbligatorio il tè.
-
-
+\torevise{Tutta la sezione 2.2, che motiva l'intero lavoro, potrebbe essere curata un pochino di più, in modo da far capire in modo semplice al lettore la corrispondenza tra queste classi di indicatori e i punti di variabilità. Magari con degli esempi presi dai nostri articoli}
 % PAGINA BIANCA
-\clearpage\thispagestyle{empty}
-\null\newpage
+% \clearpage\thispagestyle{empty}
+% \null\newpage
 
 
 
@@ -590,14 +550,13 @@ Nei requisiti forniti sono identificabili due vincoli di \textit{inter-feature}\
 % CAPITOLO 3
 \chapter{\nlp \& \spacy}
 \label{ch:nlp}
-% Il \textit{Natural Language Processing} (\nlp) rappresenta un ramo dell'Intelligenza Artificiale \torevise{non solo AI: se fai analisi lessicale cercando termini per esempio sei di molto deterministico (e infatti poi lo dici)} focalizzato su l'analisi, la comprensione e la generazione del linguaggio umano attraverso metodi computazionali. Le tecniche di \nlp si avvalgono sia di metodi, quali rappresentazione linguistica e algoritmica classica, che tecniche più moderne legate all'apprendimento automatico.
-Il \textit{Natural Language Processing} (NLP) costituisce un campo interdisciplinare al crocevia tra linguistica computazionale, scienza del linguaggio e intelligenza artificiale, che si concentra sull'analisi, la comprensione e la generazione del linguaggio umano mediante metodi computazionali. Le tecniche di NLP spaziano dall'analisi lessicale e algoritmi deterministici basati su regole, fino a metodologie più moderne che sfruttano l'apprendimento automatico e le reti neurali.
+Il \textit{Natural Language Processing} (\nlp) rappresenta un ramo dell'Intelligenza Artificiale \torevise{non solo AI: se fai analisi lessicale cercando termini per esempio sei di molto deterministico (e infatti poi lo dici)} focalizzato su l'analisi, la comprensione e la generazione del linguaggio umano attraverso metodi computazionali. Le tecniche di \nlp si avvalgono sia di metodi, quali rappresentazione linguistica e algoritmica classica, che tecniche più moderne legate all'apprendimento automatico.
 
 Dato un testo, l'elaborazione del linguaggio naturale prevede diverse fasi per analizzarlo e comprenderlo:
 
 \begin{enumerate}
 \item \textsf{Tokenizzazione} -- Fase iniziale di analisi lessicale in cui il testo viene suddiviso in unità significative chiamate token: questi possono rappresentare parole o frasi e forniscono la base per le successive elaborazioni.
-\item \textsf{Analisi morfologica} -- Questa fase si occupa di identificare il ruolo di ogni token\footnote{Come mostrato in \cref{sec:tokenizzazione}, i token sono etichettati con le informazioni qua ottenute.} nel discorso (nomi, verbi, aggettivi e altri elementi grammaticali) e di analizzare la struttura delle parole per identificarne prefissi, suffissi e radici. Permette inoltre di estrarre la forma base di una parola (\cref{sec:lemmatizzazione}) o la sua \textit{categoria grammaticale}\footnote{Una \textit{categoria grammaticale} si riferisce alla funzione che una parola svolge nella frase in base alla sua morfologia e sintassi. Le categorie grammaticali sono classificate principalmente in parti del discorso: sostantivi, verbi, aggettivi, avverbi, pronomi, preposizioni, congiunzioni e interiezioni. Ogni categoria possiede regole specifiche relative a flessione, concordanza e costruzione frasale. Per esempio, i sostantivi possono essere classificati in base al genere (maschile, femminile, neutro), al numero (singolare, plurale) e al caso (nominativo, genitivo, dativo), mentre i verbi si coniugano a seconda del tempo, modo, aspetto e voce.}.
+\item \textsf{Analisi morfologica} -- Questa fase si occupa di identificare il ruolo di ogni token\footnote{Come mostrato in \cref{sec:tokenizzazione}, i token sono etichettati con le informazioni qua ottenute.} nel discorso (nomi, verbi, aggettivi e altri elementi grammaticali) e di analizzare la struttura delle parole per identificarne prefissi, suffissi e radici. Permette inoltre di estrarre la forma base di una parola (\hyperref[fn:lemma]{\itshape lemma}) o la sua \textit{categoria grammaticale}\footnote{Una \textit{categoria grammaticale} si riferisce alla funzione che una parola svolge nella frase in base alla sua morfologia e sintassi. Le categorie grammaticali sono classificate principalmente in parti del discorso: sostantivi, verbi, aggettivi, avverbi, pronomi, preposizioni, congiunzioni e interiezioni. Ogni categoria possiede regole specifiche relative a flessione, concordanza e costruzione frasale. Per esempio, i sostantivi possono essere classificati in base al genere (maschile, femminile, neutro), al numero (singolare, plurale) e al caso (nominativo, genitivo, dativo), mentre i verbi si coniugano a seconda del tempo, modo, aspetto e voce.}.
 \item \textsf{Analisi sintattica} -- Studia la struttura grammaticale delle frasi e le relazioni di dipendenza tra i token: analizza come le parole si combinano tra loro per creare un significato. Questo permette di identificare soggetto, verbo, complemento e altre parti del discorso all'interno di una frase.
 \item \textsf{Analisi semantica} -- Qui l'attenzione si concentra sul significato delle frasi in riferimento al contesto dato. Questa fase cerca di interpretare il significato delle parole e delle frasi in base al contesto in cui vengono utilizzate, come ad esempio l'identificazione di sinonimi o l'interpretazione di espressioni idiomatiche.
 \end{enumerate}
@@ -631,7 +590,7 @@ Per eseguire la Tokenizzazione, \spacy si avvale di regole morfologiche (eventua
 Ogni token è un oggetto ricco di attributi, quali:
 
 \begin{itemize}
-    \item \textsf{Lemma} -- Forma base o canonica di una parola, utile per il riconoscimento delle diverse \textit{flessioni}\footnote{Qui il termine \textit{flessioni} si riferisce alle \textit{forme flesse} di una parola base (\cref{sec:lemmatizzazione}).} come identiche.
+\item \textsf{Lemma} -- Forma base o canonica di una parola, utile per il riconoscimento delle diverse \textit{flessioni}\footnote{Qui il termine \textit{flessioni} si riferisce alle \textit{forme flesse} di una parola base. Si veda \hyperref[fn:lemma]{\itshape lemma} dove se ne fornisce un esempio argomentato.} come identiche.
 \item \textsf{PoS-Tags} -- Assegnazione di parti del discorso (sostantivi, verbi, aggettivi) che fornisce un contesto sintattico.
 \item \textsf{Dipendenze Sintattiche} -- Relazioni di dipendenza tra i token che aiutano a identificare la struttura grammaticale di una frase.
 \item \textsf{Flag Morfologici} -- Informazioni sulla morfologia di una parola, quali genere, cardinalità, tempo e caso.
@@ -703,7 +662,6 @@ Questo mostra come \textit{gatto} e \textit{cibo} siano collegati dal verbo \tex
 
 
 \subsection{Lemmatizzazione}
-\label{sec:lemmatizzazione}
 La lemmatizzazione è parte dell'\textsf{Analisi morfologica} nell'elaborazione del linguaggio naturale che riduce le parole al loro \textit{lemma}\footnote{Il \textit{lemma} è la forma base di una parola, da cui derivano tutte le altre forme flesse.\\
 Se analizziamo la parola \textit{correndo}, essa è la forma del verbo \textit{correre} al gerundio presente. La forma base di un verbo in lingua italiana è quella coniugata al tempo infinito, quindi in questo caso \textit{correre}.\\
 Se analizziamo la parola \textit{corsa}, essa è la forma nominale (quella indicante il nome dell'azione o dello stato espresso) del verbo \textit{correre} e in questo caso, \textit{corsa} indica l'azione di correre, quindi la forma base sarà sempre \textit{correre}.\label{fn:lemma}}.
@@ -845,8 +803,7 @@ for match_id, start, end in matches:
 % CAPITOLO 4
 \chapter{\toody analyzer}
 \label{ch:parser}
-% In questo capitolo verranno presentati i diversi algoritmi che compongono il parser dell'analisi \torevise{il parser dell'analisi non è chiaro, scrivi meglio: In questo capitolo verranno presentati le diverse componenti di \toody che permettono di fare un parsing lessicale e sintattico per identificare...} del testo e che permettono a \toody di identificare i punti variabilità nei documenti dei requisiti.
-In questo capitolo verranno presentati le diverse componenti di \toody che permettono di fare un parsing lessicale e sintattico per identificare i punti variabilità nei documenti dei requisiti.
+In questo capitolo verranno presentati i diversi algoritmi che compongono il parser dell'analisi \torevise{il parser dell'analisi non è chiaro, scrivi meglio: In questo capitolo verranno presentati le diverse componenti di \toody che permettono di fare un parsing lessicale e sintattico per identificare...} del testo e che permettono a \toody di identificare i punti Variabilità nei documenti dei requisiti.
 
 L'analisi effettuata si basa sui principi definiti nella \cref{sec:indicatori}, nella quale sono delineate una serie di caratteristiche linguistiche che suggeriscono la presenza di variabilità nei requisiti. Tra queste si ricordano: uso di termini vaghi e opzionali, forme passive e specifiche costruzioni sintattiche con congiunzioni (\textit{if}, \textit{when}, \textit{where}).
 
@@ -856,7 +813,7 @@ Per raggiungere questo obiettivo, vengono impiegate una combinazione di tecniche
 \section{Implementazione parser}
 Nel contesto del progetto \toody, sfruttando la potenza e la versatilità della libreria \spacy, sono state sviluppate quattro funzioni specializzate che offrono un'analisi completa dei documenti dei requisiti\footnote{L'analisi fornita è pensata per un testo scritto in lingua inglese.}. Queste sono integrate all'interno del server realizzato in \flask e hanno il compito di processare e analizzare il testo dei requisiti inviato dal client, offrendo un'interpretazione dettagliata e accurata dei vari aspetti linguistici contenuti nei documenti.
 
-Il \textsf{parser lessicale} è progettato per analizzare i documenti di requisiti e identificare specifici pattern linguistici. Questo parser suddivide il testo in token, e con l'aiuto di un \texttt{PhraseMatcher}, cerca frasi o termini predefiniti all'interno del documento. Ogni corrispondenza trovata viene classificata e annotata, fornendo una panoramica dettagliata delle occorrenze e del loro contesto nel documento.
+Il \textsf{parser lessicale} è progettato per analizzare i documenti di requisiti e identificare specifici pattern linguistici. Questo parser suddivide il testo in token, e con l'aiuto di un \texttt{PhraseMatcher}, cerca frasi o termini predefiniti all'interno del documento. Ogni corrispondenza trovata viene classificata e annotata, fornendo una panoramica dettagliata delle occorrenze dei termini e del loro contesto specifico all'interno del documento.
 
 Il \textsf{parser di forma passiva} si focalizza sull'identificazione delle frasi che non specificano il complemento di agente, spesso fonte di ambiguità nei documenti dei requisiti. Analizza la struttura grammaticale di ogni frase per rilevare verbi al participio passato usati con ausiliari passivi (come \textit{be}), escludendo le strutture con un agente esplicito (\textit{by}).
 
@@ -987,7 +944,6 @@ In sintesi, il processo eseguito dal \textsf{parser lessicale} aiuta a identific
 
 
 \subsection{Parser di forma passiva}
-\label{subsec:parser_forma_passiva}
 % Analizziamo in dettaglio il codice del \textsf{parser di forma passiva}.
 
 \begin{mdframed}
@@ -1122,7 +1078,6 @@ In sintesi, il \textsf{parser di forma passiva} identifica tutte quelle frasi pa
 
 
 \subsection{Parser di congiunzioni verbali}
-\label{subsec:parser_congiunzioni_verbali}
 % Analizziamo in dettaglio il codice del \textsf{parser di congiunzioni verbali}.
 
 \begin{mdframed}
@@ -1259,7 +1214,6 @@ In sintesi, il \textsf{parser di congiunzioni verbali} ricerca specifiche combin
 
 
 \subsection{Analizzatore di congiunzioni}
-\label{subsec:analizzatore_congiunzioni}
 % Analizziamo in dettaglio il codice dell'\textsf{analizzatore di congiunzioni}.
 
 \begin{mdframed}
@@ -1435,7 +1389,7 @@ LEXICAL MATCHES
             R17 Shipping time should be as *fast* as possible.
 
      may: [Line 13] (neutral)
-            R13 The system *may* display the current tracking
+            The system *may* display the current tracking
             information about the order.
           [Line 16] (neutral)
             R16 After delivery, the system *may* enable the
@@ -1454,7 +1408,7 @@ possibly: [Line 3] (neutral)
             user when no matching product is found on the search.
 
  various: [Line 10] (neutral)
-            R10 The system shall display *various* shipping methods.
+            The system shall display *various* shipping methods.
 
 
 PASSIVE FORM MATCHES
@@ -1472,10 +1426,10 @@ shipped: [Line 11] (neutral)
 
 
 \newpage
-\subsection{Analisi dei risultati}
-L'esempio fornito descrive le specifiche di un sistema di commerce-online che permette agli utenti di cercare e acquistare prodotti. Il documento dei requisiti è stato creato per descrivere le funzionalità del sistema e le sue interazioni con gli utenti.
+\subsubsection{Analisi dei risultati}
+Come già mostrato in \cref{fig:diagramma}, il caso analizzato tratta un sistema di e-commerce (\textit{E-Shop}) che permette agli utenti di cercare e acquistare prodotti. Il documento dei requisiti è stato creato per descrivere le funzionalità del sistema e le sue interazioni con gli utenti.
 
-L'output mostra come \toody, attraverso l'analisi lessicale e la rilevazione della forma passiva, riveli termini e costruzioni linguistiche che possono introdurre ambiguità o indicare variabilità nei requisiti, come discusso nel \cref{ch:sple}.
+L'output mostra come \toody, attraverso l'analisi lessicale e la rilevazione della forma passiva, riveli termini e costruzioni linguistiche che possono introdurre ambiguità o indicare Variabilità nei requisiti, come discusso nel \cref{ch:sple}.
 
 Nella categoria \texttt{LEXICAL MATCHES} sono presenti i termini \textit{fast}, \textit{may}, \textit{possible} e \textit{various}. Questi, come già evidenziato, sono indicatori di vaghezza e opzionalità. La presenza di tali termini in \texttt{R17}, \texttt{R13}, \texttt{R3} e \texttt{R10} sottolinea la necessità di una maggiore specificità: ad esempio, il termine \textit{possibly} in R3 introduce un'incertezza per la quale potrebbero essere necessari ulteriori chiarimenti durante lo sviluppo.
 
@@ -1515,8 +1469,7 @@ Una volta effettuato l'accesso, la pagina si trasforma in una dashboard\footnote
 Tra gli elementi chiave della sintassi \jinja: \texttt{\string{\string{ \string}\string}} per l'output di variabili, \texttt{\string{\string{ if \string}\string}} per le condizioni e \texttt{\string{\string{ for \string}\string}} per i cicli.\\
 Nel nostro caso, quando un utente effettua l'accesso, il server \flask, tramite \jinja, seleziona e renderizza una versione personalizzata della main page.} che elenca le ricerche precedentemente salvate e consente agli utenti di avere una cronologia dei propri lavori, fornendo una lista delle analisi già eseguite.
 
-% La \textsf{second page} è il cuore operativo \torevise{meno poetico? La \textsf{second page} permette di usare le funzionalità di analisi} di \toody. In questa pagina gli utenti possono caricare un documento dei requisiti e lanciare la richiesta di analisi con un click. La richiesta viene elaborata dal server in tempo reale, permettendo agli utenti di visualizzare immediatamente i diversi risultati separati in sezioni distinte. \torevise{magari se hai dati sui tempi di risposta, o comunque dire che sono trascurabili}
-La \textsf{second page} permette di usare le funzionalità di analisi di \toody. In questa pagina gli utenti possono caricare un documento dei requisiti e lanciare la richiesta di analisi con un click. L'elaborazione avviene in tempo reale sul server e i tempi di risposta sono generalmente trascurabili, garantendo un'esperienza utente fluida e immediata. Al termine dell'elaborazione, i risultati vengono presentati in maniera strutturata, organizzati in sezioni distinte per una facile consultazione e un'analisi dettagliata degli indicatori di variabilità trovati nel documento.
+La \textsf{second page} è il cuore operativo \torevise{meno poetico? La \textsf{second page} permette di usare le funzionalità di analisi} di \toody. In questa pagina gli utenti possono caricare un documento dei requisiti e lanciare la richiesta di analisi con un click. La richiesta viene elaborata dal server in tempo reale, permettendo agli utenti di visualizzare immediatamente i diversi risultati separati in sezioni distinte. \torevise{magari se hai dati sui tempi di risposta, o comunque dire che sono trascurabili}
 
 In sintesi, questa interfaccia è stata progettata per essere sia funzionale che esteticamente gradevole, con l'obiettivo di fornire un'esperienza utente per l'analisi dei documenti dei requisiti fluida e produttiva.
 
@@ -1614,7 +1567,6 @@ def main(order=None):
 
 
 \subsection{\toody \textsf{second page}}
-\label{sec:second-page}
 La \textsf{second page} di \toody è il centro interattivo dell'applicazione, dove l'utente può caricare un documento, scegliere il dizionario e lanciare la richiesta di analisi del testo (\textit{Launch request}).
 
 La prima parte della pagina è dedicata al caricamento dei dati e contiene due aree di testo: la più piccola è una semplice \texttt{textarea} ed è riservata al dizionario dei termini\footnote{\toody fornisce un elenco predefinito di voci da cercare, suddivise per categoria (\texttt{DISJ}, \texttt{OPTIONALITY}, \texttt{VAGUENESS} e \texttt{WEAKNESS}).}, mentre la più grande è un editor\footnote{L'editor in questione è \ace (\href{https://ace.c9.io/}{\textit{Ajax Cloud9 Editor}}): un code-editor versatile, realizzato per una efficiente integrazione con le applicazioni web. \ace offre un'esperienza non dissimile da quella propsta dai moderni desktop-editor e, nella configurazione scritta per \toody, permette di scegliere sia i keybindings \textsl{Default} che quelli \textsl{Vim-like}.} completo, destinato al testo dei requisiti.
@@ -1635,7 +1587,7 @@ Nella seconda parte della pagina, sono mostrati i risultato dell'analisi. Dopo a
 \label{fig:pagina1-login}
 \end{figure}
 
-Inoltre la pagina permette all'utente di interagire con i risultati e modificare le etichette adiacenti a ciascun match, scegliendo tra \textsf{Neutral}, \textsf{False Positive}, \textsf{Ambiguity} e \textsf{Variability}. Alla successiva \textit{request}, le etichette modificate saranno salvate nella variabile \texttt{memory}\footnote{\texttt{memory} rappresenta lo stato delle etichette di ciascun match. Questo consente all'utente di personalizzare le etichette e salvare le modifiche per le successive analisi, così che ogni richiesta salvata mantenga traccia del lavoro svolto.} e inviate al server assieme a testo e dizionario, così che gli algoritmi di analisi possano riconoscere ciascun nuovo match trovato e apporre subito l'eventuale etichetta corretta.
+Inoltre la pagina permette all'utente di interagire con i risultati e modificare le etichette adiacenti a ciascun match, scegliendo tra \textsf{Neutral}, \textsf{False Positive}, \textsf{Ambiguity} e \textsf{Variability}. Alla successiva \textit{request}, le etichette modificate saranno inviate al server assieme a testo e dizionario, così che gli algoritmi di analisi possano riconoscere ciascun nuovo match trovato e apporre subito l'eventuale etichetta corretta.
 
 
 \subsubsection{Generazione dinamica delle \textit{card}}
@@ -1763,16 +1715,8 @@ function createResultCard(requestName, results, type) {
 
 
 \section{Funzionamento dell'applicazione}
-% Per eseguire l'analisi del documento dei requisiti, l'utente interagisce con l'applicazione inserendo \torevise{il testo da analizzare e indicandi quale dizionario usare, altrimenti sembra vada copiaincollato anche il dizionario. Poi non chiarisci se anche per l'analisi sintattica l'utente dà delle indicazioni su quale fare o meno. E in caso, perché per i dizionari l'utente sceglie e per l'analisi sintattica no? va detto} testo e dizionario\footnote{La funzione \texttt{lexical\_analyser} (esaminata nella \cref{subsec:parser_lessicale}) esegue l'analisi lessicale del testo e richiede un dizionario dei termini da cercare. L'utente dispone di un dizionario default che può essere eventualmente modificato o sostituito.} nei campi preposti e lanciando la \textit{request}. Queste azioni vengono gestite dinamicamente lato client dalla funzione \texttt{contaParole}, che raccoglie i testi inseriti dall'utente e invia al server una richiesta \http \post, usando la \javascript \texttt{Fetch} \api\footnote{L'\api \texttt{Fetch} di \javascript è una moderna interfaccia di programmazione per effettuare richieste \http asincrone da un web-client a un server. In sostanza, consente di inviare e ricevere dati tra client e server in modo efficiente e flessibile.}.
-All'apertura di \textsf{second page} (\cref{sec:second-page}), l'utente si trova a interagire con due aree di inserimento: una per il testo del documento dei requisiti e l'altra per il dizionario dei termini.
-
-L'area preposta all'inserimento del testo è inizialmente vuota e l'utente può riempirla caricando un file \texttt{.txt} dal prorio dispositivo o scrivendo direttamente il contenuto. Il medesimo procedimento è valido anche per il dizionario, con la differenza che \toody ne fornisce uno predefinito già caricato nell'area dedicata (vedi \cref{app:dizionario}). La scelta di usare un dizionario personalizzato per l'analisi lessicale, risiede nella volontà di consentire all'utente di guidare la ricerca in base alle proprie esigenze e al contesto del documento dei requisiti.
-
-Una \textit{request} esegue sia l'analisi lessicale (\cref{subsec:parser_lessicale}), che quelle sintattiche (\cref{subsec:parser_forma_passiva,subsec:parser_congiunzioni_verbali,subsec:analizzatore_congiunzioni}).
-
-
 \subsection{Invio della richiesta al server}
-Lanciata la \textit{request}, le azioni vengono gestite dinamicamente lato client dalla funzione \texttt{contaParole}: essa raccoglie testo e dizionario inseriti dall'utente nelle aree preposte e invia al server una richiesta \http \post, usando la \javascript \texttt{Fetch} \api\footnote{L'\api \texttt{Fetch} di \javascript è una moderna interfaccia di programmazione per effettuare richieste \http asincrone da un web-client a un server. In sostanza, consente di inviare e ricevere dati tra client e server in modo efficiente e flessibile.}.
+Per eseguire l'analisi del documento dei requisiti, l'utente interagisce con l'applicazione inserendo  \torevise{il testo da analizzare e indicandi quale dizionario usare, altrimenti sembra vada copiaincollato anche il dizionario. Poi non chiarisci se anche per l'analisi sintattica l'utente dà delle indicazioni su quale fare o meno. E in caso, perché per i dizionari l'utente sceglie e per l'analisi sintattica no? va detto} testo e dizionario\footnote{La funzione \texttt{lexical\_analyser} (esaminata nella \cref{subsec:parser_lessicale}) esegue l'analisi lessicale del testo e richiede un dizionario dei termini da cercare. L'utente dispone di un dizionario default che può essere eventualmente modificato o sostituito.} nei campi preposti e lanciando la \textit{request}. Queste azioni vengono gestite dinamicamente lato client dalla funzione \texttt{contaParole}, che raccoglie i testi inseriti dall'utente e invia al server una richiesta \http \post, usando la \javascript \texttt{Fetch} \api\footnote{L'\api \texttt{Fetch} di \javascript è una moderna interfaccia di programmazione per effettuare richieste \http asincrone da un web-client a un server. In sostanza, consente di inviare e ricevere dati tra client e server in modo efficiente e flessibile.}.
 
 La richiesta inviata dal client contiene il testo del documento dei requisiti, il dizionario dei termini per l'analisi lessicale, il nome della richiesta e un oggetto che conserva le informazioni sullo stato corrente dell'applicazione\footnote{L'oggetto in questione (\texttt{memory}) è un dizionario. Esso agisce come memoria per le etichette con le quali l'utente ha marcato i risultati visualizzati sulla pagina \html dopo l'ultimo utilizzo.}. Il server riceve la richiesta e la elabora utilizzando le funzionalità di parsing e analisi del linguaggio naturale fornite da \spacy, come approfondito nel \cref{ch:nlp}.
 
@@ -1886,6 +1830,8 @@ function contaParole() {
     });
 }
 \end{lstlisting}
+
+
 
 
 \subsection{Costruzione e invio della risposta al client}
@@ -2395,7 +2341,6 @@ def start_scheduler():
 \end{lstlisting}
 
 
-\newpage
 \begin{mdframed}
 \small
 Il frammento di codice finale del server \flask è il punto di ingresso dell'applicazione. Qui, prima di lanciare l'applicazione, viene avviata la funzione \texttt{start\_scheduler}, assicurando che il meccanismo di pulizia degli account inattivi sia in funzione.
@@ -2415,8 +2360,8 @@ if __name__ == "__main__":
 
 
 % PAGINA BIANCA
-% \clearpage\thispagestyle{empty}
-% \null\newpage
+\clearpage\thispagestyle{empty}
+\null\newpage
 
 
 % CAPITOLO 6
@@ -2424,108 +2369,8 @@ if __name__ == "__main__":
 \label{ch:conclusioni}
 
 
-% PAGINA BIANCA
-\clearpage\thispagestyle{empty}
-\null\newpage
-
-
-\appendix
-\chapter{Dizionario}
-\label{app:dizionario}
-Il presente dizionario, qui allegato in appendice, è usato da \toody per l'analisi lessicale effettuata da \texttt{lexical\_parser}. Esso è una raccolta di termini suddivisi in categorie usati per la ricerca di indicatori di variabilità nei requisiti.
-
-Può essere liberamente esteso aggiungendo voci alle categorie esistenti o creandone di nuove: ogni riga non vuota o che non inizia con il carattere \texttt{\#} è considerata una voce del dizionario.
-
-Di seguito sono riportate le categorie del dizionario default di \toody, con i termini che le compongono\footnote{I termini sono qui elencati sottoforma di lista di stringhe separate da carattere bianco anzichè da newline, per motivi di spazio.}: vaghezza, debolezza, opzionalità e disgiunzione.
-
-
-\subsubsection{Vagueness}
-\begin{lstlisting}
-Abundant Acceptable Accordant Accurate Accurately Actual Adaptable
-Adequate Adequately Adjacent Advantageous Affordable Agile Agreeable
-Ambitious Ambivalent Ample And So On Annoying Apparent Apposite
-Appreciable Appropriate Appropriately Approximate Approximately
-Apropos Apt Arduous Abstruse Abstrusely As Required Bad Badly
-Baffled Beautiful Befitting Boring Bothersome Brief Briefly Broad
-Broadly Businesslike Capable Capacious Careful Catchy Certain
-Challenging Cheap Clean Clear Clearly Closely Coarse-Grained Coarse
-Grained Coherent Colossal Comfortable Comfy Competent Complex
-Complicated Concise Concisely Concordant Confident Conformable
-Confused Congenial Congruent Congruous Considerable Consonant
-Conspicuous Cost-Effective Cost Effective Cost-Efficient Cost
-Efficient Counterfeit Counterintuitive Crucial Cryptic Cushy Decent
-Deep Deeply Deficient Delicate Delicately Demanding Dependable
-Desirable Detailed Detective Difficult Dirty Disagreeable Discordant
-Disfigured Dishy Disordered Disorganised Disorganized Displeasing
-Distant Doubtful Easily Easy Easygoing Economic Effective Effectively
-Effectual Efficacious Efficient Efficiently Effortful Effortless
-Elaborated Elegant Elementary Eligible Enough Etc.  Evident Expedient
-Expeditious Expensive Explicable Extended Extensive Extraordinary
-Fair Fair To Middling Fancy Fashionable Fast Fine Fine-Grained Fine
-Grained Finely Fit Flexible Fluent Frail Fresh Fruitful Full-Size
-Full Size Fundamental Futile Fuzzy Galling General Gentle Genuine
-Giant Good Goodish Gross Hands-Down Hands Down Hard Hard-Fought Hard
-Fought Hard-Hitting Hard Hitting Hardly Harmonious Harsh Heavy
-Helpful Hostile Illegible Immediate Imminent Impartial Imperfect
-Impertinent Impolite Important Impractical Impressive Improper Impure
-Inaccurate Inaccurately Inadequate Inadequately Inappropriate
-Inappropriately Incapable Incoherent Incompetent Incomprehensible
-Incongruous Inconsiderable Inconsiderably Inconsiderately
-Inconspicuous Indisputable Indisputably Ineffective Ineffectively
-Ineffectual Inefficacious Inefficient Ineligible Inexpedient
-Inexpensive Inexplicable Insecure Insecurely Insignificant
-Insufficient Intense Interesting Intimately Intuitive Irrational
-Irrelevant Irritating Just About Large Legible Light Limpid Logical
-Long Loud Major Malapropos Manifest Massive Meager Meaningful
-Meaningless Mediocre Middling Mild Minor Moderate Naive Narrow Nasty
-Near Nearly Neat Nerve-Racking Nerve Racking Nerve-Wracking Nerve
-Wracking Nettlesome Nice Nifty Nonspecific Noteworthy Obvious Of
-Import Of Value Ordinary Organized Obscure Outsize Outsized Overlarge
-Oversize Oversized Painless Passable Pat Perfect Pertinent Pesky
-Plaguy Plain Pleasant Pleasing Pleasureful Polite Poor Possible
-Practical Precarious Precise Pretty Problematic Prolix Prominent
-Promptly Proper Properly Pure Qualified Quick Rapid Rational Raw
-Reasonable Recent Recondite Relevant Reliable Remarkable Repulsive
-Respectable Rich Risky Robust Rough Rough-And-Ready Rough And Ready
-Roughly Sane Sapless Satisfactory Scanty Scarce Seamless Serious
-Seriously Several Sharp Short Short-Handed Short Handed Shortly
-Short-Staffed Short Staffed Sightly Significant Silly Simple
-Simplified Simplistic Simply Slim Slow Slowly Slow-Moving Slow Moving
-Small-Scale Small Scale Smart Smashing Smooth Smooth Smutty Solid
-Some Sophisticated Sound Spacious Sparse Specific Speculative Speedy
-Spontaneous Strange Stressful Strong Substantial Sufficient Suitable
-Suited Superb Superficial Swell Synthetic Teasing Tedious Thick Thin
-Tight Timesaving Tiny To The Point Today's Trenchant Trenchantly
-Tricky Trivial Troublesome Unadaptable Unbefitting Unclear
-Uncollectible Uncomfortable Uncomplicated Undemanding Undependable
-Undermanned Underspent Understaffed Uneasy Uneffective Uneffectively
-Unfair Unfit Unfruitful Unhelpful Unimportant Uninteresting
-Unmistakable Unnatural Unpleasant Unqualified Unreliable
-Unsatisfactory Unserviceable Unsound Unstable Unsubtle Unsuitable
-Unsure Unsweet Unusable Unuseable Usable Useable Useful Useless
-User-Friendly User Friendly Utile Utilizable Valuable Various Vast
-Versatile Vexatious Vexing Virtually Voluminous Wasteful Weakly Well
-Behaved Well Known Well-Known Well-Behaved Well Behaved Well-Founded
-Well Founded Wide Widely Worthy
-\end{lstlisting}
-
-
-\subsubsection{Weakness}
-\begin{lstlisting}
-Can Could May Might Would
-\end{lstlisting}
-
-
-\subsubsection{Optionality}
-\begin{lstlisting}
-Eventually Optionally Possibly Probably
-\end{lstlisting}
-
-
-\subsubsection{Disjunction}
-\begin{lstlisting}
-Or And/Or Or/And
-\end{lstlisting}
+\section{Tecniche usate e competenze acquisite}
+\section{Sviluppi futuri e riflessioni critiche}
 
 
 % PAGINA BIANCA
