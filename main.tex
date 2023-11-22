@@ -344,7 +344,7 @@ In ultimo, nella sezione \textsf{Conclusioni}\myref{ch:conclusioni} si riflette 
 
 % {\centering \rule{0.5\linewidth}{0.1pt} \par\vspace{0.25cm}}
 
-\noindent L’elaborato intende fornire un contributo nell’ambito della ricerca relativa alla specifica di \textit{Software Product Line Engineering} a partire da documenti dei requisiti in linguaggio naturale. Attraverso l’implementazione di \toody, si punta a fornire uno strumento utile ed efficace per l’identificazione della variabilità, con l’obiettivo di migliorare la qualità del processo di analisi dei requisiti e del software prodotto.
+\noindent Attraverso l’implementazione di \toody, questo elaborato mira a fornire uno strumento utile ed efficace per l’identificazione della variabilità, con l’obiettivo di migliorare la qualità del processo di analisi dei requisiti e del software prodotto.
 
 
 % PAGINA BIANCA
@@ -2422,11 +2422,34 @@ if __name__ == "__main__":
 % CAPITOLO 6
 \chapter{Conclusioni}
 \label{ch:conclusioni}
+In questo capitolo finale, ci proponiamo di riflettere sugli obiettivi inizialmente delineati per questo lavoro di tesi e valutando eventuali sviluppi futuri dell'applicazione ottenuta.
+
+\subsubsection{Funzionamento \spl \& variabilità nei requisiti}
+Il lavoro ha condotto un'analisi delle \textit{Software Product Lines}, con un focus particolare sul ruolo della variabilità nei documenti dei requisiti ed è stato possibile comprendere le dinamiche associate alla gestione della variabilità in questi contesti.
+
+Sono stati evidenziati i principali indicatori di variabilità e l'impatto che questi comportano nel diagramma delle \textit{features} del sistema software.
+
+\subsubsection{Tecniche di NLP \& funzionalità \spacy}
+Ai fini di automatizzare la ricerca degli indicatori di variabilità nei requisiti, è stato necessario studiare le tecniche di \textit{Natural Language Processing} e utilizzare la libreria \spacy per eseguire analisi lessicale e sintattica.
+
+La costruzione di un parser lessicale ha permesso la rilevazione di varibilità causata da indicatori di vaghezza, debolezza e opzionalità. Mentre l'implementazione di tre diversi analizzatori sintattici ha consentito di identificare la variabilità dovuta a forme passive, molteplicità e costrutti tipo \textit{if}, \textit{when}, \textit{where}.
+
+\subsubsection{Costruzione web-app con \flask}
+In ultimo, come obiettivo principale di questo lavoro, è stata realizzata una interfaccia web, con l'impiego del framework \flask.
+
+Questo ha permesso di trasformare un semplice prototipo iniziale da riga di comando \cite{livi}, in un'applicazione web funzionale, migliorandone l'esperienza utente e rendendo \toody una piattaforma di lavoro completa, più accessibile agli utenti finali.
+
+{\centering \rule{0.5\linewidth}{0.1pt} \par\vspace{0.25cm}}
+
+In conclusione, questo lavoro di tesi ha affrontato con successo gli obiettivi prefissati, costruendo uno strumento di lavoro che permette di automatizzare la ricerca di variabilità nei requisiti e dimostrando come le tecniche di \nlp possano essere applicate nella modellazione delle linee dei prodotti software.
+
+% \vspace{0.5cm}
+Per quanto riguarda possibili \textsf{sviluppi futuri}, \toody potrebbe essere esteso aggiungendo la possibilità di scegliere la lingua con la quale effettuare le analisi e, vista la recente diffusione di \textit{Large Language Models}, sarebbe interessante usare un \textsl{LLM} per l'analisi sintattica in sostituzione di \spacy. Un \textsl{LLM} permetterebbe inoltre di eseguire analisi semantica, consentendo il riconoscimento diretto dei punti di variabilità.
 
 
 % PAGINA BIANCA
-\clearpage\thispagestyle{empty}
-\null\newpage
+% \clearpage\thispagestyle{empty}
+% \null\newpage
 
 
 \appendix
