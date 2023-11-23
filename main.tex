@@ -8,6 +8,7 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{xurl}
 \usepackage{listings}
 \usepackage{textcomp}
 \usepackage{scrextend}
@@ -216,6 +217,11 @@
 \fontsize{13}{18}\selectfont
 
 
+% PAGINA BIANCA
+% \clearpage\thispagestyle{empty}
+% \null\newpage
+
+
 % FRONTESPIZIO
 \begin{titlepage}
 \begin{figure}
@@ -304,9 +310,9 @@ Il progetto implementa \toody (tool for detecting variability): una web-app foca
 
 
 \section{Strumenti utilizzati}
-Nell’ambito di questo progetto, sono stati utilizzati diversi strumenti che hanno facilitato lo sviluppo e la realizzazione del tool; tra questi, meritano una menzione particolare \flask e \spacy. \flask è un micro-framework per interfacce web, estremamente flessibile e leggero, che ha permesso di sviluppare un server dedicato all’elaborazione delle richieste relative all’analisi dei documenti dei requisiti e alla gestione di un database contenente lo storico di ciascun utente registrato al servizio web: l'utente può quindi modificare e analizzare i documenti caricati, verificandone la correttezza formale e controllandone i vari casi di ambiguità e variabilità. \spacy, invece, è una libreria open source di elaborazione del linguaggio naturale che ha fornito le funzionalità di analisi lessicale e sintattica necessarie per l’individuazione degli indicatori di variabilità nei documenti analizzati. La scelta di tali strumenti è stata dettata dalla necessità di avere un sistema flessibile in grado di gestire analisi linguistiche complesse.
+Nell’ambito di questo progetto, sono stati utilizzati diversi strumenti che hanno facilitato lo sviluppo e la realizzazione del tool; tra questi, meritano una menzione particolare \flask e \spacy. \flask è un micro-framework per interfacce web, estremamente flessibile e leggero, che ha permesso di sviluppare un server dedicato all’elaborazione delle richieste relative all’analisi dei documenti dei requisiti e alla gestione di un database contenente lo storico di ciascun utente registrato al servizio web. L'utente può quindi modificare e analizzare i documenti caricati, verificandone la correttezza formale e controllandone i vari casi di ambiguità e variabilità. \spacy, invece, è una libreria open source di elaborazione del linguaggio naturale, che ha fornito le funzionalità di analisi lessicale e sintattica necessarie per l’individuazione degli indicatori di variabilità nei documenti analizzati. La scelta di tali strumenti è stata dettata dalla necessità di avere un sistema flessibile in grado di gestire analisi linguistiche complesse.
 
-Unitamente a ciò, l'interfaccia intuitiva della web-app facilita l'interazione con il sistema, permettendo agli utenti di gestire i documenti direttamente sulla piattaforma ed eseguire l'analisi in modo semplice e diretto. La possibilità di visualizzare in tempo reale i risultati dell'analisi è certamente uno strumento utile per le fasi di verifica e la validazione, promuovendo così un approccio più accurato e riflessivo nella definizione dei requisiti del software.
+Unitamente a ciò, l'interfaccia intuitiva della web-app facilita l'interazione con il sistema, permettendo agli utenti di gestire i documenti direttamente sulla piattaforma ed eseguire l'analisi in modo semplice e diretto. La possibilità di visualizzare in tempo reale i risultati dell'analisi è certamente uno strumento utile per le fasi di verifica e validazione, promuovendo così un approccio più accurato e riflessivo nella definizione dei requisiti del software.
 
 
 \section{Motivazioni}
@@ -335,7 +341,7 @@ Conclusa l'introduzione teorica, nella sezione \textsf{\toody analyzer}\myref{ch
 
 \vspace{0.25cm}
 
-Il cuore della tesi è rappresentato da \textsf{\toody web-app}\myref{ch:architettura}. In questo capitolo si fornisce un'analisi tecnica dettagliata del progetto: sono presentati l’interfaccia utente e l'architettura del server \flask.
+Il cuore della tesi è rappresentato da \textsf{\toody web-app}\myref{ch:architettura}. In questo capitolo si fornisce un'analisi tecnica dettagliata del progetto: sono presentate l’interfaccia utente e l'architettura del server \flask.
 
 \vspace{0.25cm}
 
@@ -345,6 +351,10 @@ In ultimo, nella sezione \textsf{Conclusioni}\myref{ch:conclusioni} si riflette 
 % {\centering \rule{0.5\linewidth}{0.1pt} \par\vspace{0.25cm}}
 
 \noindent Attraverso l’implementazione di \toody, questo elaborato mira a fornire uno strumento utile ed efficace per l’identificazione della variabilità, con l’obiettivo di migliorare la qualità del processo di analisi dei requisiti e del software prodotto.
+
+{\centering \rule{0.5\linewidth}{0.1pt} \par\vspace{0.25cm}}
+
+\noindent Il codice sorgente dell'applicazione \toody è disponibile pubblicamente su GitHub all'indirizzo \url{https://github.com/matteogiorgi/toody}.
 
 
 % PAGINA BIANCA
@@ -368,7 +378,7 @@ Gli artefatti possono includere documenti, codici sorgente, test e qualsiasi alt
 
 \section{Software Product Lines}
 \label{sec:spl}
-La problematica delle ambiguità nei documenti dei requisiti porta a importanti considerazioni riguardo alcune specifiche caratterisciche di questi ultimi: vaghezza, opzionalità, debolezza e molteplicità possono talvolta indicare una possibile flessibilità, sia nelle scelte di progettazione e implementazione, che nelle decisioni di configurabilità. Tale condizione permette di definire esattamente i punti in cui i prodotti possono differire e raggrupparli in famiglie.
+La problematica delle ambiguità nei documenti dei requisiti porta a importanti considerazioni riguardo alcune specifiche caratteristiche di questi ultimi: vaghezza, opzionalità, debolezza e molteplicità possono talvolta indicare una possibile flessibilità, sia nelle scelte di progettazione e implementazione, che nelle decisioni di configurabilità. Tale condizione permette di definire esattamente i punti in cui i prodotti possono differire e raggrupparli in famiglie.
 
 In questo contesto, le caratteristiche di flessibilità appena descritte sono chiamate variabilità e rappresentano il fondamento dello sviluppo software dedicato alla realizzazione di famiglie di sistemi correlati, noti come \textit{Software Product Lines}.
 
@@ -382,7 +392,7 @@ La \textit{Software Product Line Engineering} è caratterizzata da due processi 
 Il processo di \textsf{Domain Engineering} si concentra sulla creazione di asset riutilizzabili per una linea di prodotto: esso analizza le esigenze delle diverse applicazioni, definendo un framework che rappresenta le caratteristiche comuni e variabili di una \spl. L'obiettivo è sviluppare componenti e funzionalità che possano essere condivise attraverso vari prodotti della linea.
 
 % Dopo la definizione gli asset comuni, la \textsf{Application Engineering} sfrutta tali caratteristiche per sviluppare applicazioni specifiche: questo passaggio coinvolge la creazione di software basati sul framework \torevise{creazione di software che soddifano la specifica definita nella fase precedente.} sviluppato nella fase precedente. L'obiettivo è garantire che ogni prodotto derivato sia allineato con le esigenze degli utenti, sfruttando al contempo le funzionalità comuni definite precedentemente.
-Dopo la definizione gli asset comuni, la \textsf{Application Engineering} sfrutta tali caratteristiche per sviluppare applicazioni specifiche: questo passaggio coinvolge la creazione di software che soddifano la specifica definita nella fase precedente. L'obiettivo è garantire che ogni prodotto derivato sia allineato con le esigenze degli utenti, sfruttando al contempo le funzionalità comuni definite precedentemente.
+Dopo la definizione degli asset comuni, la \textsf{Application Engineering} sfrutta tali caratteristiche per sviluppare applicazioni specifiche: questo passaggio coinvolge la creazione di software che soddifano la specifica definita nella fase precedente. L'obiettivo è garantire che ogni prodotto derivato sia allineato con le esigenze degli utenti, sfruttando al contempo le funzionalità comuni definite precedentemente.
 
 
 
@@ -394,7 +404,7 @@ A tutti i livelli di astrazione, la descrizione di una linea di prodotto è oppo
 
 La gestione efficace della variabilità è la chiave per sfruttare appieno i benefici della \spl, come la riduzione dei costi di sviluppo e la velocizzazione del \textit{time-to-market}. A questo proposito, diversi paradigmi e metodologie sono stati proposti: ciascuno fornisce frameworks e pratiche per identificare e modellare la variabilità attraverso l'intero ciclo di vita del software.
 
-Vediamo adesso \fast e \rseb: entrambi basati sulla notazione \uml\footnote{\uml, acronimo di \textit{Unified Modeling Language}, è uno standard di modellazione utilizzato per specificare, visualizzare, costruire e documentare gli artefatti di un sistema software.}, il primo paradigma si focalizza sull'identificazione di \textit{feature} comuni, mentre il secondo enfatizza il riutilizzo guidato dai casi d'uso \cite{griss:favaro:alessandro, harsu}.
+Vediamo adesso \fast e \rseb: entrambi basati sulla notazione \uml\footnote{\uml, acronimo di \textit{Unified Modeling Language}, è uno standard di modellazione utilizzato per specificare, visualizzare, costruire e documentare gli artefatti di un sistema software.}, il primo paradigma si focalizza sull'identificazione di \textit{features} comuni, mentre il secondo enfatizza il riutilizzo guidato dai casi d'uso \cite{griss:favaro:alessandro, harsu}.
 
 
 \subsubsection{\fast}
@@ -426,9 +436,9 @@ Il processo può essere suddiviso nelle seguenti fasi:
 In sintesi, \rseb rappresenta un modello con un approccio orientato al riutilizzo, attraverso il quale gli sviluppatori possono affrontare con maggiore efficacia la complessità e la variabilità dei prodotti software.
 
 
-\subsection{ Il paradigma \foda}
+\subsection{Il paradigma \foda}
 L'analisi del dominio orientata alle caratteristiche o \foda (\textit{Feature-Oriented Domain Analysis}) \cite{kang:cohen:hess:nowak:peters}
-è considerato una pietra miliare nell'ambito della \textit{Software Product Line Engineering} perché introduce il concetto di \textit{feature} come elemento centrale nell'analisi del dominio e nella modellazione della variabilità. Il paradigma fornisce un metodo sistematico per identificare e rappresentare le caratteristiche comuni e le variabilità tra prodotti simili all'interno di un dominio, facilitando così la progettazione e lo sviluppo di \spl.
+è considerata una pietra miliare nell'ambito della \textit{Software Product Line Engineering} perché introduce il concetto di \textit{feature} come elemento centrale nell'analisi del dominio e nella modellazione della variabilità. Il paradigma fornisce un metodo sistematico per identificare e rappresentare le caratteristiche comuni e le variabilità tra prodotti simili all'interno di un dominio, facilitando così la progettazione e lo sviluppo di \spl.
 
 Una \textit{feature} viene definita come un aspetto evidente o distintivo del software, percepito dall'utente come una qualità o una caratteristica specifica del sistema. L'essenza del \foda è di rappresentare il sistema software in termini di \textit{features} e di utilizzare tali rappresentazioni per identificare e modellare aspetti comuni e variabili delle applicazioni.
 
@@ -437,7 +447,7 @@ Le fasi principali del processo sono le seguenti:
 \begin{itemize}
 \item \textsf{Analisi del dominio} -- Questa fase iniziale prevede la definizione del dominio e l'identificazione dei prodotti della \spl.
 \item \textsf{Analisi delle features} -- Qui vengono estratte le \textit{features} da documenti dei requisiti scritti in linguaggio naturale, identificando gli elementi fondamentali per lo sviluppo futuro del prodotto.
-\item \textsf{Modellazione delle features} -- In questa fase, viene creato il \textit{diagramma delle features}, una rappresentazione gerarchica del sistema in termini di caratteristiche. Tale diagramma evidenzia le relazioni tra queste e definisce le capacità essenziali del software.
+\item \textsf{Modellazione delle features} -- In questa fase, viene creato il \textit{diagramma delle features}, una rappresentazione gerarchica del sistema in termini di caratteristiche. Tale diagramma evidenzia le relazioni tra queste e definisce le capacità fondamentali del software.
 \end{itemize}
 
 Il concetto di \textit{feature} è essenziale per comprendere e delineare chiaramente le componenti o le funzionalità di un sistema. Oltre a ciò, è altrettanto cruciale per evidenziare gli aspetti comuni tra diverse configurazioni del sistema, definendo così la \spl dell'applicazione.
@@ -597,7 +607,7 @@ Dato un testo, l'elaborazione del linguaggio naturale prevede diverse fasi per a
 
 \begin{enumerate}
 \item \textsf{Tokenizzazione} -- Fase iniziale di analisi lessicale in cui il testo viene suddiviso in unità significative chiamate token: questi possono rappresentare parole o frasi e forniscono la base per le successive elaborazioni.
-\item \textsf{Analisi morfologica} -- Questa fase si occupa di identificare il ruolo di ogni token\footnote{Come mostrato in \cref{sec:tokenizzazione}, i token sono etichettati con le informazioni qua ottenute.} nel discorso (nomi, verbi, aggettivi e altri elementi grammaticali) e di analizzare la struttura delle parole per identificarne prefissi, suffissi e radici. Permette inoltre di estrarre la forma base di una parola (\cref{sec:lemmatizzazione}) o la sua \textit{categoria grammaticale}\footnote{Una \textit{categoria grammaticale} si riferisce alla funzione che una parola svolge nella frase in base alla sua morfologia e sintassi. Le categorie grammaticali sono classificate principalmente in parti del discorso: sostantivi, verbi, aggettivi, avverbi, pronomi, preposizioni, congiunzioni e interiezioni. Ogni categoria possiede regole specifiche relative a flessione, concordanza e costruzione frasale. Per esempio, i sostantivi possono essere classificati in base al genere (maschile, femminile, neutro), al numero (singolare, plurale) e al caso (nominativo, genitivo, dativo), mentre i verbi si coniugano a seconda del tempo, modo, aspetto e voce.}.
+\item \textsf{Analisi morfologica} -- Questa fase si occupa di identificare il ruolo di ogni token\footnote{Come mostrato in \cref{sec:tokenizzazione}, i token sono etichettati con le informazioni qua ottenute.} nel discorso (nomi, verbi, aggettivi e altri elementi grammaticali) e di analizzare la struttura delle parole per identificarne prefissi, suffissi e radici. Permette inoltre di estrarre la forma base di una parola (\cref{sec:lemmatizzazione}) o la sua \textit{categoria grammaticale}\footnote{Una \textit{categoria grammaticale} si riferisce alla funzione che una parola svolge nella frase in base alla sua morfologia e sintassi. Le categorie grammaticali sono classificate principalmente in parti del discorso: sostantivi, verbi, aggettivi, avverbi, pronomi, preposizioni, congiunzioni e interiezioni. Ogni categoria possiede regole specifiche relative a flessione, concordanza e costruzione frasale. Per esempio, i sostantivi possono essere classificati in base al genere (maschile, femminile, neutro), al numero (singolare, plurale) e al caso (nominativo, genitivo, dativo \dots), mentre i verbi si coniugano a seconda del tempo, modo, aspetto e voce.}.
 \item \textsf{Analisi sintattica} -- Studia la struttura grammaticale delle frasi e le relazioni di dipendenza tra i token: analizza come le parole si combinano tra loro per creare un significato. Questo permette di identificare soggetto, verbo, complemento e altre parti del discorso all'interno di una frase.
 \item \textsf{Analisi semantica} -- Qui l'attenzione si concentra sul significato delle frasi in riferimento al contesto dato. Questa fase cerca di interpretare il significato delle parole e delle frasi in base al contesto in cui vengono utilizzate, come ad esempio l'identificazione di sinonimi o l'interpretazione di espressioni idiomatiche.
 \end{enumerate}
@@ -607,7 +617,7 @@ Dato un testo, l'elaborazione del linguaggio naturale prevede diverse fasi per a
 Nel panorama degli strumenti per il \textit{Natural Language Processing}, \spacy si distingue per la sua progettazione orientata alla produzione e per le prestazioni di alto livello. Come libreria open-source di \nlp, \spacy offre un'architettura robusta e ottimizzata, focalizzata sulla velocità e sull'accuratezza, che la rende una scelta privilegiata per l'implementazione in applicazioni di scala industriale.
 
 La peculiarità di \spacy risiede nel suo approccio pragmatico alla risoluzione di problemi di \nlp: la libreria è stata progettata per essere utilizzata in contesti reali, dove la necessità di affidabilità ed efficienza è prioritaria. Ciò si traduce in una suite di algoritmi e modelli linguistici pre-addestrati su vasti \textit{corpora di testo}\footnote{Il termine \textit{corpora di testo} si riferisce a raccolte di testi scritti o trascritti, organizzati sistematicamente e utilizzati come base per la ricerca nel campo della linguistica, della traduzione e, più recentemente, nell'elaborazione del linguaggio naturale. Un \textit{corpus} è spesso annotato linguisticamente: questo significa che è stato marcato per fornire informazioni aggiuntive di tipo grammaticale, sintattico e semantico.\\
-Nel contesto di \spacy, i \textit{corpora di testo} sono utilizzati per addestrare modelli statistici che apprendono da esempi reali come riconoscere e interpretare vari aspetti del linguaggio (e.g. struttura delle frasi e significato del contesto). Questi \textit{corpora} possono variare da collezioni generali di testi a dataset di settori altamente specializzati, come quello medico, giuridico o tecnologico. L'uso di \textit{corpora} vasti e variati consente ai modelli di \nlp di essere particolarmente accurati quando poi applicati al linguaggio naturale nel quotidiano.} lingue diverse.
+Nel contesto di \spacy, i \textit{corpora di testo} sono utilizzati per addestrare modelli statistici che apprendono da esempi reali come riconoscere e interpretare vari aspetti del linguaggio (e.g. struttura delle frasi e significato del contesto). Questi \textit{corpora} possono variare da collezioni generali di testi a dataset di settori altamente specializzati, come quello medico, giuridico o tecnologico. L'uso di \textit{corpora} vasti e variati consente ai modelli di \nlp di essere particolarmente accurati quando poi applicati al linguaggio naturale nel quotidiano.} in lingue diverse.
 
 Uno degli aspetti salienti di \spacy è l'astrazione fornita dalla sua \api, la quale consente al programmatore di implementare rapidamente funzionalità di \nlp senza doversi addentrare nella complessità degli algoritmi sottostanti. Ciò semplifica notevolmente il processo di sviluppo e consente di concentrarsi sull'integrazione e sull'ottimizzazione delle funzionalità di analisi del linguaggio all'interno delle applicazioni.
 
@@ -624,7 +634,7 @@ Nelle fasi successive saranno mostrate le funzionalità di \spacy, utilizzate pe
 \label{sec:tokenizzazione}
 Come precedentemente descritto, la \textsf{Tokenizzazione} è il primo passo nell'analisi di un testo in \nlp. \spacy esegue una suddivisione del testo in unità minime, o token, che rappresentano le parole, i simboli di punteggiatura e altri elementi costitutivi del linguaggio.
 
-Il processo di Tokenizzazione in \spacy non si limita a una semplice segmentazione del testo basata su spazi e segni di punteggiatura ma utilizza un modello complesso che prende in considerazione le regole grammaticali e le eccezioni linguistiche. Questo approccio permette di gestire efficacemente anche le parole composte, le contrazioni e altri casi speciali che possono variare da una lingua all'altra.
+Il processo di Tokenizzazione in \spacy non si limita a una semplice segmentazione del testo basata su spazi e segni di punteggiatura, ma utilizza un modello complesso che prende in considerazione le regole grammaticali e le eccezioni linguistiche. Questo approccio permette di gestire efficacemente anche le parole composte, le contrazioni e altri casi speciali che possono variare da una lingua all'altra.
 
 Per eseguire la Tokenizzazione, \spacy si avvale di regole morfologiche (eventualmente estensibili) per ciascuna lingua supportata. Vengono usate espressioni regolari e modelli statistici per raffinare ulteriormente il processo di suddivisione del testo, facendo sì che i token generati siano il più possibile precisi e utili per le fasi successive dell'analisi.
 
@@ -1494,7 +1504,7 @@ In conclusione, l'output di \toody mostra la sua efficacia non solo nell'identif
 % CAPITOLO 5
 \chapter{\toody web-app}
 \label{ch:architettura}
-Dovendo implementare uno strumento per l'analisi dei documenti dei requisiti, la scelta di sviluppare \toody come una applicazione web, è risultata la soluzione più efficace: questo garantisce accessibilità universale, interoperabilità tra diversi sistemi e una gestione centralizzata delle risorse di elaborazione.
+Dovendo implementare uno strumento per l'analisi dei documenti dei requisiti, la scelta di sviluppare \toody come una applicazione web è risultata la soluzione più efficace: questo garantisce accessibilità universale, interoperabilità tra diversi sistemi e una gestione centralizzata delle risorse di elaborazione.
 
 La scelta del web-framework più adeguato per questo lavoro è ricaduta su \flask: un micro-framework \python particolarmente adatto per lo sviluppo di web-app leggere e modulabili.
 
@@ -1626,7 +1636,7 @@ La prima parte della pagina è dedicata al caricamento dei dati e contiene due a
 \label{fig:pagina1-login}
 \end{figure}
 
-Nella seconda parte della pagina, sono mostrati i risultato dell'analisi. Dopo aver lanciato la \textit{request}, l'utente è immediatamente informato sui match lessicali, della forma passiva, delle congiunzioni verbali e delle frasi congiuntive\footnote{Questi quattro tipi di match corrispondono ai risultati trovati con le funzioni analisi linguistica discusse in \cref{ch:parser}.}. I risultati così raggruppati, sono organizzati in \textit{card} espandibili che forniscono contesto e numero di riga per ciascun match, offrendo una interfaccia utente facilmente navigabile.
+Nella seconda parte della pagina, sono mostrati i risultati dell'analisi. Dopo aver lanciato la \textit{request}, l'utente è immediatamente informato sui match lessicali, della forma passiva, delle congiunzioni verbali e delle frasi congiuntive\footnote{Questi quattro tipi di match corrispondono ai risultati trovati con le funzioni di analisi linguistica discusse in \cref{ch:parser}.}. I risultati così raggruppati sono organizzati in \textit{card} espandibili che forniscono contesto e numero di riga per ciascun match, offrendo una interfaccia utente facilmente navigabile.
 
 \begin{figure}[H]
 \centering
@@ -1764,9 +1774,11 @@ function createResultCard(requestName, results, type) {
 
 \section{Funzionamento dell'applicazione}
 % Per eseguire l'analisi del documento dei requisiti, l'utente interagisce con l'applicazione inserendo \torevise{il testo da analizzare e indicandi quale dizionario usare, altrimenti sembra vada copiaincollato anche il dizionario. Poi non chiarisci se anche per l'analisi sintattica l'utente dà delle indicazioni su quale fare o meno. E in caso, perché per i dizionari l'utente sceglie e per l'analisi sintattica no? va detto} testo e dizionario\footnote{La funzione \texttt{lexical\_analyser} (esaminata nella \cref{subsec:parser_lessicale}) esegue l'analisi lessicale del testo e richiede un dizionario dei termini da cercare. L'utente dispone di un dizionario default che può essere eventualmente modificato o sostituito.} nei campi preposti e lanciando la \textit{request}. Queste azioni vengono gestite dinamicamente lato client dalla funzione \texttt{contaParole}, che raccoglie i testi inseriti dall'utente e invia al server una richiesta \http \post, usando la \javascript \texttt{Fetch} \api\footnote{L'\api \texttt{Fetch} di \javascript è una moderna interfaccia di programmazione per effettuare richieste \http asincrone da un web-client a un server. In sostanza, consente di inviare e ricevere dati tra client e server in modo efficiente e flessibile.}.
-All'apertura di \textsf{second page} (\cref{sec:second-page}), l'utente si trova a interagire con due aree di inserimento: una per il testo del documento dei requisiti e l'altra per il dizionario dei termini.
+All'apertura della \textsf{second page} (\cref{sec:second-page}), l'utente si trova a interagire con due aree di inserimento: una per il testo del documento dei requisiti e l'altra per il dizionario dei termini.
 
-L'area preposta all'inserimento del testo è inizialmente vuota e l'utente può riempirla caricando un file \texttt{.txt} dal prorio dispositivo o scrivendo direttamente il contenuto. Il medesimo procedimento è valido anche per il dizionario, con la differenza che \toody ne fornisce uno predefinito già caricato nell'area dedicata (vedi \cref{app:dizionario}). La scelta di usare un dizionario personalizzato per l'analisi lessicale, risiede nella volontà di consentire all'utente di guidare la ricerca in base alle proprie esigenze e al contesto del documento dei requisiti.
+L'area preposta all'inserimento del testo è inizialmente vuota e l'utente può riempirla caricando un file \texttt{.txt} dal prorio dispositivo o scrivendo direttamente il contenuto. Un dizionario è già presente nell'area dedicata al momento dell'apertura (vedi \cref{app:dizionario}), \toody consente eventualmente di modificarlo o sostituirlo con uno nuovo.
+% Il medesimo procedimento è valido anche per il dizionario, con la differenza che \toody ne fornisce uno predefinito già caricato nell'area dedicata (vedi \cref{app:dizionario}).
+La scelta di usare un dizionario personalizzato per l'analisi lessicale, risiede nella volontà di consentire all'utente di guidare la ricerca in base alle proprie esigenze e al contesto del documento dei requisiti.
 
 Una \textit{request} esegue sia l'analisi lessicale (\cref{subsec:parser_lessicale}), che quelle sintattiche (\cref{subsec:parser_forma_passiva,subsec:parser_congiunzioni_verbali,subsec:analizzatore_congiunzioni}).
 
@@ -1898,7 +1910,7 @@ Usando la libreria \spacy, il testo dei requisiti viene trasformato in un doc-ob
 
 Al completamento delle funzioni, il server archivia i risultati delle analisi in un database insieme ad altri dettagli della richiesta: questo permette di conservare la cronologia delle richieste effettuate e recuperare i risultati in un secondo momento per revisioni o analisi future.
 
-Infine, il server prepara una risposta in formato \json contenente un dizionario che riporta i risultati delle analisi di ciascuna funzione e la restituisce al client.
+Infine, il server prepara una risposta in formato \json, contenente un dizionario che riporta i risultati delle analisi di ciascuna funzione, e la restituisce al client.
 
 
 \subsubsection{Codice risposta}
@@ -2243,7 +2255,7 @@ def login():
 
 
 \subsection{Logout utente}
-Affinchè l'applicazione possa disconnettere gli utenti loggati, il server dispone della funzione \texttt{logout}: una procedura che usa il meccanismo \textsf{Flask-Login}\footnote{Quando un utente effettua il login, \textsf{Flask-Login} memorizza un identificatore univoco (\textsf{ID}) per l'utente nella sessione del browser, che sarà poi accessibile nelle richieste \http successive. Questa informazione è salvata in un cookie sicuro che il browser invia automaticamente al server assieme ad ogni richiesta.\\
+Affinchè l'applicazione possa disconnettere gli utenti loggati, il server dispone della funzione \texttt{logout}: una procedura che usa il meccanismo \textsf{Flask-Login}\footnote{Quando un utente effettua il login, \textsf{Flask-Login} memorizza un identificatore univoco (\textsf{ID}) per l'utente nella sessione del browser, che sarà poi accessibile nelle richieste \http successive. Questa informazione è salvata in un cookie sicuro che il browser invia automaticamente al server insieme ad ogni richiesta.\\
 Nel momento in cui viene invocata \texttt{logout\_user}, \textsf{Flask-Login} cerca l'identificatore nella sessione attuale per determinare quale utente debba essere scollegato. Rimuove quindi l'\textsf{ID} dell'utente dalla sessione (pulendo ogni dato associato) e fa in modo che le richieste future non siano più autenticate come quell'utente.\\
 Le sessioni in Flask sono protette e non possono essere facilmente manomesse dal client: questo garantisce che l'\textsf{ID} dell'utente nella sessione sia affidabile.}, messo a disposizione dal framework, per terminare la sessione dell'utente corrente. Dopo aver effettuato la disconnessione, \texttt{logout} non fa altro che mostrare un \textit{flash-text} di notifica e reindirizzare l'utente alla pagina principale.
 
@@ -2319,7 +2331,7 @@ Per una gestione completa degli utenti registrati su \toody, il server contiene 
 \texttt{remove\_inactive\_users} è programmata per eliminare automaticamente gli account degli utenti inattivi da più di 15 giorni. Questa funzione è essenziale per mantenere il database pulito, rimuovendo account non più utilizzati.
 
 \texttt{start\_scheduler} è responsabile dell'avvio di uno scheduler\footnote{La funzione \texttt{start\_scheduler} usa \texttt{BackgroundScheduler} per la gestione degli utenti inattivi. \texttt{BackgroundScheduler} è parte del modulo \href{https://apscheduler.readthedocs.io/en/stable/}{\textsf{APScheduler}} e consente di programmare l'esecuzione di compiti in determinati momenti o dopo intervalli di tempo specifici (con un funzionamento analogo ai cron-jobs Linux).\\
-Nello specifico, questo scheduler esegue tutti i sui thread in background (senza interferire con il processo principale, ne interrompere il normale flusso di esecuzione dell'applicazione) ed è persistente rispetto ai lavori pianificati (i processi schedulati vengono salvati nel database e ripristinati in caso di riavvio dell'applicazione).} in background che esegue periodicamente la funzione \texttt{remove\_inactive\_users}. Questo garantisce che la pulizia periodica degli utenti inattivi avvenga automaticamente.
+Nello specifico, questo scheduler esegue tutti i sui thread in background (senza interferire con il processo principale, né interrompere il normale flusso di esecuzione dell'applicazione) ed è persistente rispetto ai lavori pianificati (i processi schedulati vengono salvati nel database e ripristinati in caso di riavvio dell'applicazione).} in background che esegue periodicamente la funzione \texttt{remove\_inactive\_users}. Questo garantisce che la pulizia periodica degli utenti inattivi avvenga automaticamente.
 
 
 % \newpage
@@ -2422,10 +2434,10 @@ if __name__ == "__main__":
 % CAPITOLO 6
 \chapter{Conclusioni}
 \label{ch:conclusioni}
-In questo capitolo finale, ci proponiamo di riflettere sugli obiettivi inizialmente delineati per questo lavoro di tesi e valutando eventuali sviluppi futuri dell'applicazione ottenuta.
+In questo capitolo finale, ci proponiamo di riflettere sugli obiettivi inizialmente delineati per questo lavoro di tesi e valutare eventuali sviluppi futuri dell'applicazione ottenuta.
 
 \subsubsection{Funzionamento \spl \& variabilità nei requisiti}
-Il lavoro ha condotto un'analisi delle \textit{Software Product Lines}, con un focus particolare sul ruolo della variabilità nei documenti dei requisiti ed è stato possibile comprendere le dinamiche associate alla gestione della variabilità in questi contesti.
+In questo elaborato è stata condotta un'analisi delle \textit{Software Product Lines}, con un focus particolare sul ruolo della variabilità nei documenti dei requisiti ed è stato possibile comprendere le dinamiche associate alla gestione della variabilità in questi contesti.
 
 Sono stati evidenziati i principali indicatori di variabilità e l'impatto che questi comportano nel diagramma delle \textit{features} del sistema software.
 
@@ -2434,17 +2446,34 @@ Ai fini di automatizzare la ricerca degli indicatori di variabilità nei requisi
 
 La costruzione di un parser lessicale ha permesso la rilevazione di varibilità causata da indicatori di vaghezza, debolezza e opzionalità. Mentre l'implementazione di tre diversi analizzatori sintattici ha consentito di identificare la variabilità dovuta a forme passive, molteplicità e costrutti tipo \textit{if}, \textit{when}, \textit{where}.
 
-\subsubsection{Costruzione web-app con \flask}
-In ultimo, come obiettivo principale di questo lavoro, è stata realizzata una interfaccia web, con l'impiego del framework \flask.
+Il prototipo di base, precedentemente sviluppato \cite{livi}, ha fornito un buon punto di partenza per la costruzione delle funzioni di analisi e, grazie a un lavoro di refactoring non banale, è stato possibile adattare il codice alle nuove funzionalità, pur mantenendo una buona efficienza.
 
-Questo ha permesso di trasformare un semplice prototipo iniziale da riga di comando \cite{livi}, in un'applicazione web funzionale, migliorandone l'esperienza utente e rendendo \toody una piattaforma di lavoro completa, più accessibile agli utenti finali.
+\subsubsection{Costruzione web-app con \flask}
+In ultimo, vista la necessità di fornire una interfaccia grafica allo strumento creato, una parte importante del lavoro ha riguardato la realizzazione di una interfaccia web, con l'impiego del framework \flask.
+
+Questo ha permesso di trasformare un semplice prototipo iniziale da riga di comando, in un'applicazione web funzionale, migliorandone l'esperienza utente e rendendo \toody una piattaforma di lavoro completa, più accessibile agli utenti finali.
 
 {\centering \rule{0.5\linewidth}{0.1pt} \par\vspace{0.25cm}}
 
-In conclusione, questo lavoro di tesi ha affrontato con successo gli obiettivi prefissati, costruendo uno strumento di lavoro che permette di automatizzare la ricerca di variabilità nei requisiti e dimostrando come le tecniche di \nlp possano essere applicate nella modellazione delle linee dei prodotti software.
+Questo progetto di tesi ha affrontato con successo gli obiettivi prefissati, costruendo uno strumento di lavoro che permette di automatizzare la ricerca di variabilità nei requisiti e dimostrando come le tecniche di \nlp possano essere applicate nella modellazione delle linee dei prodotti software.
 
 % \vspace{0.5cm}
-Per quanto riguarda possibili \textsf{sviluppi futuri}, \toody potrebbe essere esteso aggiungendo la possibilità di scegliere la lingua con la quale effettuare le analisi e, vista la recente diffusione di \textit{Large Language Models}, sarebbe interessante usare un \textsl{LLM} per l'analisi sintattica in sostituzione di \spacy. Un \textsl{LLM} permetterebbe inoltre di eseguire analisi semantica, consentendo il riconoscimento diretto dei punti di variabilità.
+Per quanto riguarda possibili \textsf{sviluppi futuri}, \toody potrebbe essere esteso aggiungendo la possibilità di scegliere la lingua con la quale effettuare le analisi e, vista la recente diffusione di \textit{Large Language Models}, sarebbe interessante affiancare alle funzioni sviluppate con \spacy un \textsl{LLM} che integri l'analisi dei costrutti sintattici per un risultato più completo. Con le nuove ricerche effettuate nel campo dei \textit{Large Language Models}, un loro impiego offrirebbe inoltre la possibilità di eseguire analisi semantica, consentendo il riconoscimento diretto dei punti di variabilità.
+
+
+\begin{mdframed}
+\small
+Il codice sorgente dell'applicazione \toody è disponibile pubblicamente su GitHub all'indirizzo \url{https://github.com/matteogiorgi/toody}.
+\end{mdframed}
+
+
+% PAGINA BIANCA
+% \clearpage\thispagestyle{empty}
+% \null\newpage
+
+
+\nocite{*}
+\printbibliography
 
 
 % PAGINA BIANCA
@@ -2457,7 +2486,7 @@ Per quanto riguarda possibili \textsf{sviluppi futuri}, \toody potrebbe essere e
 \label{app:dizionario}
 Il presente dizionario, qui allegato in appendice, è usato da \toody per l'analisi lessicale effettuata da \texttt{lexical\_parser}. Esso è una raccolta di termini suddivisi in categorie usati per la ricerca di indicatori di variabilità nei requisiti.
 
-Può essere liberamente esteso aggiungendo voci alle categorie esistenti o creandone di nuove: ogni riga non vuota o che non inizia con il carattere \texttt{\#} è considerata una voce del dizionario.
+Può essere liberamente esteso aggiungendo voci alle categorie esistenti o creandone di nuove: ogni riga non vuota o che non inizi con il carattere \texttt{\#} è considerata una voce del dizionario.
 
 Di seguito sono riportate le categorie del dizionario default di \toody, con i termini che le compongono\footnote{I termini sono qui elencati sottoforma di lista di stringhe separate da carattere bianco anzichè da newline, per motivi di spazio.}: vaghezza, debolezza, opzionalità e disgiunzione.
 
@@ -2549,15 +2578,6 @@ Eventually Optionally Possibly Probably
 \begin{lstlisting}
 Or And/Or Or/And
 \end{lstlisting}
-
-
-% PAGINA BIANCA
-\clearpage\thispagestyle{empty}
-\null\newpage
-
-
-\nocite{*}
-\printbibliography
 
 
 \end{document}
